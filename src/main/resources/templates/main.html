@@ -26,10 +26,21 @@
         <form role="search">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
-        &nbsp
-        <a class="btn btn-sm btn-outline-secondary" href="/member/login">Sign in</a>
-        &nbsp
-        <a class="btn btn-sm btn-outline-secondary" href="/member/register">Sign up</a>
+        <div th:unless="${session.loginUser}">
+          &nbsp
+          <a class="btn btn-sm btn-outline-secondary" href="/member/login">Sign in</a>
+          &nbsp
+          <a class="btn btn-sm btn-outline-secondary" href="/member/register">Sign up</a>
+        </div>
+
+        <div th:if="${session.loginUser}" class="align-items-center">
+          &nbsp
+          <p th:text="${session.loginUser.memberNickname}+'님'">admin</p>
+          &nbsp
+          <a class="btn btn-sm btn-outline-secondary" href="/member/mypage">My Page</a>
+          &nbsp
+          <a class="btn btn-sm btn-outline-secondary" href="/member/logout">Logout</a>
+        </div>
       </div>
     </div>
   </header>

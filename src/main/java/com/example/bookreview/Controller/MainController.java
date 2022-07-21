@@ -20,19 +20,23 @@ public class MainController {
     public MainController(MemberService memberService){
         this.memberService = memberService;
     }
-//    @GetMapping("/")
-//    public ModelAndView main(HttpServletRequest request) throws IOException {
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("main");
-//
-//        HttpSession session = request.getSession();
-//        Member user = (Member) session.getAttribute("loginUser");
-//        if(user == null){
-//
-//        }
-//    }
     @GetMapping("/")
-    public String home(){
-        return "main";
+    public ModelAndView main(HttpServletRequest request) throws IOException {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("main");
+
+        HttpSession session = request.getSession();
+        Member user = (Member) session.getAttribute("loginUser");
+        if(user != null){//로그인되어있는 사용자
+            System.out.println("MainController - 로그인성공");
+        }
+        else{//로그인 전 사용자
+            System.out.println("MainController - 로그인 기록 없음");
+        }
+        return mav;
     }
+//    @GetMapping("/")
+//    public String home(){
+//        return "main";
+//    }
 }
