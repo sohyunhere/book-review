@@ -16,8 +16,8 @@ public class AttachedFile {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILE_ID_GENERATOR")
     private Long fileId;
 
-    @Column(name = "POST_ID")
-    private Long postId;
+//    @Column(name = "POST_ID")
+//    private Long postId;
     private int fsize;
     private String ftype;
     private String name;
@@ -25,7 +25,7 @@ public class AttachedFile {
     @Temporal(TemporalType.TIMESTAMP)
     private Date writtenDate;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="POST_ID")
-//    private Post post;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="POST_ID")
+    private Post post;
 }

@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Setter
@@ -23,11 +22,11 @@ public class Post {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @Column(name = "MEMBER_ID")
-    private Long memberId;
+//    @Column(name = "MEMBER_ID")
+//    private Long memberId;
 
-    @Column(name = "CATEGORY_ID")
-    private Long categoryId;
+//    @Column(name = "CATEGORY_ID")
+//    private Long categoryId;
     @Column(name = "POST_TITLE")
     private String postTitle;
     @Column(name = "RBOOK_DATE")
@@ -42,8 +41,8 @@ public class Post {
 
     private int viewCount;
 
-    @Column(name = "LOCATION_ID")
-    private Long locationId;
+//    @Column(name = "LOCATION_ID")
+//    private Long locationId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name="LOCATION_ID")

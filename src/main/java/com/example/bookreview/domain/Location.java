@@ -20,6 +20,9 @@ public class Location {
     private BigDecimal lat;
     private BigDecimal lng;
 
+    @OneToOne(mappedBy = "location", optional = false)
+    private Post post;
+
     public Location() {
 
     }
