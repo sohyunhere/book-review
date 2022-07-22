@@ -5,13 +5,14 @@ import com.example.bookreview.domain.Member;
 import com.example.bookreview.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @Controller
 public class MemberController {
@@ -31,7 +32,7 @@ public class MemberController {
     //회원가입
     @PostMapping("/member/register")
     public ModelAndView register(HttpServletRequest request,
-                                 @Valid signupForm form, ModelAndView mav){
+                                 @Validated @ModelAttribute signupForm form, ModelAndView mav){
         Member member = new Member();
         member.setMemberEmail(form.getEmail());
         member.setMemberPassword(form.getPassword());
@@ -47,14 +48,48 @@ public class MemberController {
             mav.setViewName("message");
             return mav;
         }
-        mav.setViewName("main");
-        Member member1 = memberService.findMemberById(id);
-        HttpSession session = request.getSession();
-        session.setAttribute("loginUser", member1);
-        return mav;
+        else {
+
+            mav.addObject("data", new Message("회원가입이 완료되었습니다", "/"));
+            mav.setViewName("message");
+            Member member1 = memberService.findMemberById(id);
+            HttpSession session = request.getSession();
+            session.setAttribute("loginUser", member1);
+            return mav;
+        }
     }
 
     //로그인 폼으로 이동
+    @GetMapping("/member/login")
+    public String goSignin(){
+        return "member/signinForm";
+    }
     //로그인
+    @PostMapping("/member/login")
+    public ModelAndView login(HttpServletRequest request, singinForm form, ModelAndView mav){
+        Member member = new Member();
+        member.setMemberEmail(form.getEmail());
+        member.setMemberPassword(form.getPassword());
+
+        if(memberService.login(member)) {
+            Member loginUser = memberService.findMemberByEmail(member.getMemberEmail());
+            HttpSession session = request.getSession();
+            session.setAttribute("loginUser", loginUser);
+
+            mav.addObject("data", new Message("로그인이 완료되었습니다", "/"));
+            mav.setViewName("message");
+
+        }else{
+            mav.addObject("data", new Message("이메일 혹은 비밀번호가 틀립니다", "/member.login"));
+            mav.setViewName("message");
+        }
+       return mav;
+    }
     //로그아웃
+    @GetMapping("/member/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("loginUser");
+        return "main";
+    }
 }

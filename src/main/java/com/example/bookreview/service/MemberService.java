@@ -33,7 +33,6 @@ public class MemberService {
 
         System.out.println(id);
         Optional<Member> result = memberRepo.findByMemberId(id);
-        System.out.println("가능3");
         if(result.isEmpty()){
             System.out.println("아이디에 해당하는 멤버가 없음/n");
         }
@@ -41,5 +40,21 @@ public class MemberService {
         return result.get();
     }
     //로그인
+    public boolean login(Member member){
+        Optional<Member> result = memberRepo.findByMemberEmail(member.getMemberEmail());
+        if(result.isEmpty()){
+            return false;
+        }
+        if(!(result.get().getMemberPassword().equals(member.getMemberPassword()))){
+            return false;
+        }
+        return true;
+    }
     //전체 회원 조회
+    //회원 email에 대한 회원 조회
+    public Member findMemberByEmail(String email){
+        Optional<Member> result = memberRepo.findByMemberEmail(email);
+        return result.get();
+    }
+
 }
