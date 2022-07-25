@@ -1,14 +1,16 @@
 package com.example.bookreview.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
 @Table(name="MEMBERINFO")
 public class Member {
     @Id

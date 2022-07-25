@@ -1,5 +1,7 @@
 package com.example.bookreview.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class AttachedFile {
     @Id
     @Column(name = "FILE_ID")
@@ -28,4 +32,8 @@ public class AttachedFile {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="POST_ID")
     private Post post;
+
+    public AttachedFile() {
+
+    }
 }

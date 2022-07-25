@@ -1,5 +1,7 @@
 package com.example.bookreview.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
 public class Post {
 
     @Id
@@ -57,4 +61,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comments> comments;
+
+    public Post() {
+
+    }
 }

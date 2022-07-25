@@ -1,11 +1,18 @@
-package com.example.bookreview.Controller;
+package com.example.bookreview.dto;
+
+import com.example.bookreview.domain.Member;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
-public class signupForm {
+
+@Getter
+@Setter
+public class SignupDto {
 
     @Email
     @NotBlank(message = "이메일은 필수 입력값입니다.")
@@ -21,35 +28,11 @@ public class signupForm {
     @NotEmpty
     private String nickname;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword2() {
-        return password2;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public Member toEntity() {
+        return Member.builder()
+                .memberEmail(email)
+                .memberPassword(password)
+                .memberNickname(nickname)
+                .build();
     }
 }

@@ -1,8 +1,6 @@
 package com.example.bookreview.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,6 +9,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
 public class Location {
     @Id
     @Column(name="LOCATION_ID")

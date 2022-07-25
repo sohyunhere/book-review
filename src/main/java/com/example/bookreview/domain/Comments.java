@@ -1,5 +1,7 @@
 package com.example.bookreview.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class Comments {
    @Id
    @Column(name = "COMMENT_ID")
@@ -32,4 +36,7 @@ public class Comments {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    public Comments() {
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.bookreview.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class Category {
     @Id
     @Column(name = "CATEGORY_ID")
