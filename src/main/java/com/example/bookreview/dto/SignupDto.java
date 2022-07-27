@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 
 
 @Getter
@@ -28,11 +29,15 @@ public class SignupDto {
     @NotEmpty
     private String nickname;
 
+    private boolean enabled;
+
     public Member toEntity() {
         return Member.builder()
                 .memberEmail(email)
                 .memberPassword(password)
                 .memberNickname(nickname)
+                .enabled(enabled)
+                .roles(new ArrayList<>())
                 .build();
     }
 }

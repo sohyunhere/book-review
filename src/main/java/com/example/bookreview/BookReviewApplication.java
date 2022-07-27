@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-//@SpringBootApplication
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
+//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class BookReviewApplication {
 
 	public static void main(String[] args) {

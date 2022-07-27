@@ -1,10 +1,12 @@
 package com.example.bookreview.service;
 
 import com.example.bookreview.domain.Member;
+import com.example.bookreview.domain.Role;
 import com.example.bookreview.dto.SigninDto;
 import com.example.bookreview.dto.SignupDto;
 import com.example.bookreview.repository.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +17,12 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepo memberRepo;
+
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    public MemberService(MemberRepo memberRepo){
+    public MemberService(MemberRepo memberRepo, PasswordEncoder passwordEncoder){
         this.memberRepo = memberRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //회원가입
@@ -32,7 +37,17 @@ public class MemberService {
                 return false;
             }
             else{
+                String encodedPassword = passwordEncoder.encode(signupDto.getPassword());
+                signupDto.setPassword(encodedPassword);
+                signupDto.setEnabled(true);
+
                 Member saveMember = signupDto.toEntity();
+                Role role = new Role();
+                role.setId(1L);
+                System.out.println(saveMember.isEnabled());//true
+                System.out.println(saveMember.getRoles());//[]
+                saveMember.getRoles().add(role);
+
                 Member member = memberRepo.save(saveMember);
                 return true;
             }

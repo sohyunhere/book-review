@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,11 +28,20 @@ public class Member {
     @Column(name = "MEMBER_NICKNAME")
     private String memberNickname;
 
-   @OneToMany(mappedBy = "member")
+    private boolean enabled;
+
+    @OneToMany(mappedBy = "member")
     private List<Post> postList;
 
-   @OneToMany(mappedBy = "member")
-   private List<Comments> commentsList;
+    @OneToMany(mappedBy = "member")
+    private List<Comments> commentsList;
+
+    @ManyToMany
+    @JoinTable(
+           name = "USER_ROLE",
+           joinColumns = @JoinColumn(name = "MEMBER_ID"),
+           inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private List<Role> roles = new ArrayList<>();
     public Member() {
 
     }
