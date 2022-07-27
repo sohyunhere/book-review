@@ -2,12 +2,9 @@ package com.example.bookreview.service;
 
 import com.example.bookreview.domain.Member;
 import com.example.bookreview.domain.Role;
-import com.example.bookreview.dto.SigninDto;
 import com.example.bookreview.dto.SignupDto;
 import com.example.bookreview.repository.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,17 +62,6 @@ public class MemberService  {
             System.out.println("아이디에 해당하는 멤버가 없음/n");
         }
         return result.get();
-    }
-    //로그인
-    public boolean login(SigninDto signinDto){
-        Optional<Member> result = memberRepo.findByMemberEmail(signinDto.getEmail());
-        if(result.isEmpty()){
-            return false;
-        }
-        if(!(result.get().getMemberPassword().equals(signinDto.getPassword()))){
-            return false;
-        }
-        return true;
     }
 
     //전체 회원 조회

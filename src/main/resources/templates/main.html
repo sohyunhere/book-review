@@ -26,7 +26,7 @@
         <form role="search">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
-<!--        <div th:unless="${session.loginUser}">-->
+
         <div sec:authorize="!isAuthenticated()">
           &nbsp
           <a class="btn btn-sm btn-outline-secondary" th:href="@{/member/login}">Sign in</a>
@@ -34,17 +34,14 @@
           <a class="btn btn-sm btn-outline-secondary" th:href="@{/member/register}">Sign up</a>
         </div>
 
-<!--        <div th:if="${session.loginUser}" class="align-items-center">-->
         <div sec:authorize="isAuthenticated()">
           &nbsp
-<!--          <p th:text="${session.loginUser.memberNickname}+'님'">admin</p>-->
           <p sec:authentication="name">admin</p>
           &nbsp
-          <a class="btn btn-sm btn-outline-secondary" href="/member/mypage">My Page</a>
+          <a class="btn btn-sm my-2 btn-outline-secondary" th:href="@{/member/mypage}">My Page</a>
           &nbsp
-<!--          <a class="btn btn-sm btn-outline-secondary" th:href="@{/logout}">Logout</a>-->
           <form th:action="@{/logout}" method="post">
-            <button class="btn btn-sm btn-outline-secondary" type="submit">Logout</button>
+            <button class="btn btn-sm my-2 btn-outline-secondary" type="submit">Logout</button>
           </form>
         </div>
 

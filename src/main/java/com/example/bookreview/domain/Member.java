@@ -17,7 +17,6 @@ public class Member{
     @Column(name = "MEMBER_ID")
     @SequenceGenerator(name = "MEMBER_NO_GENERATOR", sequenceName = "MEMBER_SEQ", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_NO_GENERATOR")
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long memberId;
 
     @Column(name = "MEMBER_EMAIL")
