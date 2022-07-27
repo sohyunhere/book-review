@@ -5,15 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @Table(name="MEMBERINFO")
-public class Member {
+public class Member{
     @Id
     @Column(name = "MEMBER_ID")
     @SequenceGenerator(name = "MEMBER_NO_GENERATOR", sequenceName = "MEMBER_SEQ", initialValue = 1, allocationSize = 1)
@@ -36,12 +35,12 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Comments> commentsList;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
            name = "USER_ROLE",
            joinColumns = @JoinColumn(name = "MEMBER_ID"),
            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> roles;
     public Member() {
 
     }

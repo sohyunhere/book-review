@@ -6,6 +6,8 @@ import com.example.bookreview.dto.SigninDto;
 import com.example.bookreview.dto.SignupDto;
 import com.example.bookreview.repository.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +16,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class MemberService {
+public class MemberService  {
 
     private final MemberRepo memberRepo;
 
@@ -86,5 +88,4 @@ public class MemberService {
         }
         return result.get();
     }
-
 }
