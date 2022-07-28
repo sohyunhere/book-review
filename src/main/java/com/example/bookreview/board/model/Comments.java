@@ -1,16 +1,14 @@
-package com.example.bookreview.domain;
+package com.example.bookreview.board.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.example.bookreview.board.model.Post;
+import com.example.bookreview.user.model.Member;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 public class Comments {

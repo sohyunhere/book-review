@@ -1,8 +1,8 @@
-package com.example.bookreview.auth;
+package com.example.bookreview.user.auth;
 
-import com.example.bookreview.domain.Member;
-import com.example.bookreview.repository.MemberRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.bookreview.user.model.Member;
+import com.example.bookreview.user.repo.MemberRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
-    @Autowired
-    private MemberRepo memberRepo;
+    private final MemberRepo memberRepo;
 
     @Override// 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 MemberInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

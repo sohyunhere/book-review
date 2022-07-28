@@ -1,16 +1,13 @@
-package com.example.bookreview.domain;
+package com.example.bookreview.board.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.example.bookreview.board.model.Post;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 public class Category {
@@ -27,9 +24,5 @@ public class Category {
 
     public Category() {
 
-    }
-    public Category(Long categoryId, String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
     }
 }

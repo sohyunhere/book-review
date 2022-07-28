@@ -1,14 +1,13 @@
-package com.example.bookreview.domain;
+package com.example.bookreview.location.model;
 
+import com.example.bookreview.board.model.Post;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @Builder
 @AllArgsConstructor
 public class Location {
@@ -25,10 +24,5 @@ public class Location {
 
     public Location() {
 
-    }
-
-    public Location(BigDecimal lat, BigDecimal lng) {
-        this.lat = lat;
-        this.lng = lng;
     }
 }
