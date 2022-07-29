@@ -22,30 +22,30 @@
       <div class="col-4 text-center">
         <a class="blog-header-logo text-dark" href="/">책 읽고 정리</a>
       </div>
-      <div class="col-4 d-flex justify-content-end align-items-center">
-        <form role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
 
         <div sec:authorize="!isAuthenticated()">
+          <div class="col-4 d-flex justify-content-end align-items-center">
           &nbsp
           <a class="btn btn-sm btn-outline-secondary" th:href="@{/member/login}">Sign in</a>
           &nbsp
           <a class="btn btn-sm btn-outline-secondary" th:href="@{/member/register}">Sign up</a>
+          </div>
         </div>
 
         <div sec:authorize="isAuthenticated()">
-          &nbsp
-          <p sec:authentication="name">admin</p>
-          &nbsp
-          <a class="btn btn-sm my-2 btn-outline-secondary" th:href="@{/member/mypage}">My Page</a>
-          &nbsp
+          <div class="col-4 d-flex align-items-center">
+            <form role="search">
+              <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            </form>
+          <p sec:authentication="name" class="align-items-center">admin</p>
+          <a class="btn btn-sm my-2 btn-outline-secondary" th:href="@{/member/mypage}">MyPage</a>
           <form th:action="@{/logout}" method="post">
             <button class="btn btn-sm my-2 btn-outline-secondary" type="submit">Logout</button>
           </form>
-        </div>
 
-      </div>
+          </div>
+
+        </div>
     </div>
   </header>
 
@@ -117,6 +117,7 @@
       </tbody>
     </table>
   </div>
+
 
 </main>
 

@@ -24,18 +24,12 @@ public class MemberService  {
         //이메일 중복확인
         if(result.isEmpty()){
             //이메일 중복 아님
-            if(!(signupDto.getPassword().equals(signupDto.getPassword2()))){
-                //비밀번호 서로 틀림
-                return false;
-            }
-            else{
                 String encodedPassword = passwordEncoder.encode(signupDto.getPassword());
                 signupDto.setPassword(encodedPassword);
 
                 Member saveMember = signupDto.toEntity();
                 memberRepo.save(saveMember);
                 return true;
-            }
         }
         return false;
     }
