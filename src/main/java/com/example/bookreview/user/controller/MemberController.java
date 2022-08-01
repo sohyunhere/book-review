@@ -1,11 +1,13 @@
 package com.example.bookreview.user.controller;
 
 import com.example.bookreview.Message;
-import com.example.bookreview.user.auth.PrincipalDetails;
+import com.example.bookreview.user.model.Member;
 import com.example.bookreview.user.model.SignupDto;
 import com.example.bookreview.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,8 +57,9 @@ public class MemberController {
 
     //마이페이지로 이동
     @GetMapping("/member/mypage")
-    public String goMypage(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
-        model.addAttribute("loginUser", principalDetails.getMember());
+    public String goMypage(Model model, Authentication auth){
+        Member loginuser = (Member) auth.getPrincipal();
+        model.addAttribute("loginUser", loginuser);
         return "member/mypage";
     }
 
