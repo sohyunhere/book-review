@@ -17,7 +17,7 @@ import java.util.*;
 
 @Entity
 @Builder
-@Getter
+@Data
 @AllArgsConstructor
 @Table(name="MEMBERINFO")
 public class Member implements UserDetails {

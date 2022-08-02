@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Data
 public class PostDto {
-    private Long postId;
     private Long userId;
     private Long categoryId;
     private String postTitle;
@@ -16,4 +15,15 @@ public class PostDto {
     private Date writtenDate;
     private int viewCount;
     private Long locationId;
+    private String author;
+    private String publisher;
+
+    public Post toEntity(){
+        return Post.builder()
+                .postTitle(postTitle)
+                .readBookDate(readBookDate)
+                .bookTitle(bookTitle)
+                .build();
+    }
+
 }

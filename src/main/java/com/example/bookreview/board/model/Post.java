@@ -43,6 +43,8 @@ public class Post {
     private Date writtenDate;
 
     private int viewCount;
+    private String author;
+    private String publisher;
 
 //    @Column(name = "LOCATION_ID")
 //    private Long locationId;
