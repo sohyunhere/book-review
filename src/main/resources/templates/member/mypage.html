@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <head th:include="layout/fragments :: html_head"></head>
+    <head th:include="layout/fragments :: html_head"/>
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/changeName.js"></script>
+
     <title>마이 페이지</title>
 </head>
 <body>
@@ -53,6 +54,7 @@
                     <label for="nickname" class="col-sm-2 col-form-label">Nickname</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="nickname" th:value="${loginUser.getMemberNickname()}" name="nickname">
+                        <input type="hidden" name="name" th:value="${loginUser.getMemberNickname()}"   id="name" />
                     </div>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary my-2" type="submit">닉네임 수정</button>

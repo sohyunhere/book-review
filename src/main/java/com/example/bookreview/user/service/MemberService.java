@@ -91,7 +91,6 @@ public class MemberService implements UserDetailsService {
                                     member.getMemberPassword())
                     );
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("dkdlel: "+ member.getMemberId());
             return member.getMemberId();
         }
         return -1L;
