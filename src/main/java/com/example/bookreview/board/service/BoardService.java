@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,5 +36,14 @@ public class BoardService {
     //글 목록 다 가져가기
     public List<Post> findAll(){
         return boardRepo.findAll();
+    }
+
+    //postId에 해당하는 post객체 가져오기
+    public Post findPostBypostId(Long id){
+        Optional<Post> result =  boardRepo.findById(id);
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
     }
 }

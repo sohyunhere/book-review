@@ -1,6 +1,7 @@
 package com.example.bookreview.board.controller;
 
 import com.example.bookreview.board.model.Category;
+import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -52,6 +54,12 @@ public class BoardController {
     }
 
     //글 보기
+    @GetMapping("/board/view/{postId}")
+    public String postView(@PathVariable("postId") Long id, Model model){
+        Post post = boardService.findPostBypostId(id);
+        model.addAttribute("post", post);
+        return "board/v_post";
+    }
     //글 수정
     //글 삭제
 }
