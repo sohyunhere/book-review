@@ -22,14 +22,14 @@ public class Post {
     private Long postId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="MEMBER_ID")
+    @JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
     private Member member;
 
-//    @Column(name = "MEMBER_ID")
-//    private Long memberId;
+    @Column(name = "MEMBER_ID")
+    private Long memberId;
 
-//    @Column(name = "CATEGORY_ID")
-//    private Long categoryId;
+    @Column(name = "CATEGORY_ID")
+    private Long categoryId;
     @Column(name = "POST_TITLE")
     private String postTitle;
     @Column(name = "RBOOK_DATE")
@@ -40,9 +40,13 @@ public class Post {
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "WRITTENDATE")
+//    @Temporal(TemporalType.DATE)
     private Date writtenDate;
 
+    @Column(name = "VIEWCOUNT")
     private int viewCount;
+
     private String author;
     private String publisher;
 
@@ -57,7 +61,7 @@ public class Post {
     private List<AttachedFile> attachedFileList;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CATEGORY_ID")
+    @JoinColumn(name = "CATEGORY_ID", insertable = false, updatable = false)
     private Category category;
 
     @OneToMany(mappedBy = "post")
