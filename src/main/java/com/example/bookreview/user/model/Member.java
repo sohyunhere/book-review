@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -19,7 +20,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @Table(name="MEMBERINFO")
-public class Member implements UserDetails {
+public class Member implements UserDetails{
     @Id
     @Column(name = "MEMBER_ID")
     @SequenceGenerator(name = "MEMBER_NO_GENERATOR", sequenceName = "MEMBER_SEQ", initialValue = 1, allocationSize = 1)
