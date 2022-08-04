@@ -33,10 +33,10 @@ public class Member implements UserDetails {
     @Column(name = "MEMBER_NICKNAME")
     private String memberNickname;
 
-    @OneToMany(mappedBy = "member" )
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Post> postList;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comments> commentsList;
 
     private String role;

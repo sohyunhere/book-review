@@ -5,6 +5,7 @@ import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.repo.BoardRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,7 @@ public class BoardService {
         return boardRepo.findAll();
     }
 
+    @Transactional
     //postId에 해당하는 post객체 가져오기
     public Post findPostBypostId(Long id){
         Optional<Post> result =  boardRepo.findById(id);
