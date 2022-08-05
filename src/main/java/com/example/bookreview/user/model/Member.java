@@ -2,9 +2,7 @@ package com.example.bookreview.user.model;
 ;
 import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.model.Comments;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +15,12 @@ import java.util.*;
 
 @Entity
 @Builder
-@Data
+@Getter
 @AllArgsConstructor
 @Table(name="MEMBERINFO")
-public class Member implements UserDetails{
+public class Member implements UserDetails, Serializable{
+    private static final long serialVersionUID = 174726374856727L;
+
     @Id
     @Column(name = "MEMBER_ID")
     @SequenceGenerator(name = "MEMBER_NO_GENERATOR", sequenceName = "MEMBER_SEQ", initialValue = 1, allocationSize = 1)
@@ -34,16 +34,19 @@ public class Member implements UserDetails{
     @Column(name = "MEMBER_NICKNAME")
     private String memberNickname;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Post> postList;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Comments> commentsList;
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+//    private List<Post> postList;
+//
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+//    private List<Comments> commentsList;
 
     private String role;
 
     public Member() {
 
+    }
+    public void updateNickname(String memberNickname){
+        this.memberNickname = memberNickname;
     }
     @Transactional
     @Override

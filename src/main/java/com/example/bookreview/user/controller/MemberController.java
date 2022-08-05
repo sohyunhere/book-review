@@ -66,6 +66,7 @@ public class MemberController {
     @PostMapping("/member/mypage/nickname")
     public String changeNickname(@RequestParam("nickname") String nickname,  Authentication auth){
         Member loginuser = (Member) auth.getPrincipal();
+//
         memberService.updateNickname(loginuser.getMemberId(), nickname);
         return "redirect:/";
     }

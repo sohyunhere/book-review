@@ -21,15 +21,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POST_ID_GENERATOR")
     private Long postId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="MEMBER_ID", insertable = false, updatable = false)
+    @ManyToOne (cascade = CascadeType.MERGE)
+    @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @Column(name = "MEMBER_ID")
-    private Long memberId;
-
-    @Column(name = "CATEGORY_ID")
-    private Long categoryId;
     @Column(name = "POST_TITLE")
     private String postTitle;
     @Column(name = "RBOOK_DATE")
@@ -41,17 +36,13 @@ public class Post {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "WRITTENDATE")
-//    @Temporal(TemporalType.DATE)
     private Date writtenDate;
 
     @Column(name = "VIEWCOUNT")
-    private int viewCount;
+    private Long viewCount;
 
     private String author;
     private String publisher;
-
-//    @Column(name = "LOCATION_ID")
-//    private Long locationId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name="LOCATION_ID")
@@ -61,7 +52,7 @@ public class Post {
     private List<AttachedFile> attachedFileList;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CATEGORY_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
     @OneToMany(mappedBy = "post")
@@ -69,5 +60,10 @@ public class Post {
 
     public Post() {
 
+    }
+
+    // 조회수
+    public void updateViewCount(Long viewCount){
+        this.viewCount = viewCount;
     }
 }

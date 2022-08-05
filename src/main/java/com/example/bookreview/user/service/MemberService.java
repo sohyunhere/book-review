@@ -73,24 +73,22 @@ public class MemberService implements UserDetailsService {
         return result.get();
     }
 
+    @Transactional
     //닉네임 수정
-    public Long updateNickname(Long id, String name){
+    public Long updateNickname(Long id, String nickname){
         Optional<Member> result = Optional.ofNullable(memberRepo.findByMemberId(id).orElseThrow(() -> {
             return new IllegalArgumentException("회원 찾기 실패");
         }));
 
         if(result.isPresent()){
             Member member = result.get();
-            member.setMemberNickname(name);
-            memberRepo.save(member);
+            member.updateNickname(nickname);
 
-            System.out.println("email"+ member.getMemberEmail());
-            System.out.println("pass"+ member.getMemberPassword());
-            Authentication authentication = authenticationManager.authenticate(
-                            new UsernamePasswordAuthenticationToken(member.getMemberEmail(),
-                                    member.getMemberPassword())
-                    );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            Authentication authentication = authenticationManager.authenticate(
+//                            new UsernamePasswordAuthenticationToken(member.getMemberEmail(),
+//                                    member.getMemberPassword())
+//                    );
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
             return member.getMemberId();
         }
         return -1L;

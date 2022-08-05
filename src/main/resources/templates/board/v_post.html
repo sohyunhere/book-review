@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:include="layout/fragments :: html_head"></head>
     <link rel="stylesheet" href="/css/main.css">
@@ -10,7 +10,10 @@
     <div th:replace="layout/fragments :: header"></div>
 
     <p class="h1" th:text="${post.postTitle}">Board</p>
-    <p th:text="${post.member.memberNickname}">글쓴이</p>
+
+    <span class="p-3" th:text="'작성자: ' + ${post.member.memberNickname}">글쓴이</span>
+    <span class="p-3" th:text="'조회수: ' + ${post.viewCount}">조회수</span>
+
     <div class="card mb-4">
         <div class="card-body">
             <form>

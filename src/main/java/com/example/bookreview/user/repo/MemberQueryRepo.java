@@ -31,6 +31,13 @@ public class MemberQueryRepo extends QuerydslRepositorySupport {
                 .where(member.memberId.eq(id))
                 .fetchOne());
     }
+    public void updateNickname(Long id, String nickName){
+        jpaQueryFactory
+                .update(member)
+                .set(member.memberNickname, nickName)
+                .where(member.memberId.eq(id))
+                .execute();
+    }
 
     public void updatePassword(Long id, String password){
         String encodedPassword = passwordEncoder.encode(password);

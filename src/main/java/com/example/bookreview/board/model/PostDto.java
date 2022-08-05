@@ -1,5 +1,6 @@
 package com.example.bookreview.board.model;
 
+import com.example.bookreview.user.model.Member;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,7 +9,9 @@ import java.util.Date;
 
 @Data
 public class PostDto {
-    private Long userId;
+//    private Long userId;
+    private Member member;
+    private Category category;
     private Long categoryId;
     private String postTitle;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -18,7 +21,7 @@ public class PostDto {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date writtenDate;
-    private int viewCount;
+    private Long viewCount;
 
 
     private String author;
@@ -29,7 +32,8 @@ public class PostDto {
     private Long locationId;
     public Post toEntity(){
         return Post.builder()
-                .memberId(userId)
+                .member(member)
+//                .memberId(userId)
                 .postTitle(postTitle)
                 .readBookDate(new java.sql.Date(readDate.getTime()))
                 .bookTitle(bookTitle)
@@ -37,9 +41,11 @@ public class PostDto {
                 .viewCount(viewCount)
                 .author(author)
                 .publisher(publisher)
-                .categoryId(categoryId)
+//                .categoryId(categoryId)
+                .category(category)
                 .writtenDate(writtenDate)
                 .build();
     }
+
 
 }
