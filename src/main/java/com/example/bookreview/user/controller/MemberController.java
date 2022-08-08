@@ -5,7 +5,9 @@ import com.example.bookreview.user.model.Member;
 import com.example.bookreview.user.model.SignupDto;
 import com.example.bookreview.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
     //회원가입 폼으로 이동
     @GetMapping("/member/register")
     public String goSignup(){
@@ -64,11 +67,16 @@ public class MemberController {
 
     //닉네임 수정하기
     @PostMapping("/member/mypage/nickname")
-    public String changeNickname(@RequestParam("nickname") String nickname,  Authentication auth){
-        Member loginuser = (Member) auth.getPrincipal();
-//
-        memberService.updateNickname(loginuser.getMemberId(), nickname);
-        return "redirect:/";
+    public ModelAndView changeNickname(@RequestParam("nickname") String nickname,  Authentication auth, ModelAndView mav){
+        Member user = (Member) auth.getPrincipal();
+        Member changedUser = memberService.updateNickname(user.getMemberId(), nickname);
+
+        //세션 수정
+        memberService.changeSession(changedUser);
+
+        mav.addObject("data", new Message("닉네임 수정이 완료되었습니다", "/member/mypage"));
+        mav.setViewName("message");
+        return mav;
     }
 
     //비밀번호 수정 폼으로 이동

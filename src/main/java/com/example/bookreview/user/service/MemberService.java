@@ -26,6 +26,7 @@ public class MemberService implements UserDetailsService {
     private final MemberQueryRepo memberQueryRepo;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
     @Override// 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 MemberInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 시큐리티에서 지정한 서비스이기 때문에 이 메소드를 필수로 구현
@@ -75,7 +76,7 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     //닉네임 수정
-    public Long updateNickname(Long id, String nickname){
+    public Member updateNickname(Long id, String nickname){
         Optional<Member> result = Optional.ofNullable(memberRepo.findByMemberId(id).orElseThrow(() -> {
             return new IllegalArgumentException("회원 찾기 실패");
         }));
@@ -84,14 +85,9 @@ public class MemberService implements UserDetailsService {
             Member member = result.get();
             member.updateNickname(nickname);
 
-//            Authentication authentication = authenticationManager.authenticate(
-//                            new UsernamePasswordAuthenticationToken(member.getMemberEmail(),
-//                                    member.getMemberPassword())
-//                    );
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return member.getMemberId();
+            return member;
         }
-        return -1L;
+        return null;
     }
 
     @Transactional
@@ -105,5 +101,13 @@ public class MemberService implements UserDetailsService {
            return -1L;
        }
 
+    }
+
+    public void changeSession(Member member){
+        //세션 수정
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(member , member.getPassword(), member.getAuthorities());
+        Authentication newAuth = token;
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+        return;
     }
 }
