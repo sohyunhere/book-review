@@ -31,12 +31,6 @@ public class BoardController {
     private final CategoryService categoryService;
     private final BoardService boardService;
 
-//    @InitBinder
-//    protected void initBinder(WebDataBinder binder) {
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-//    }
-
     //글쓰기 페이지로 이동
     @GetMapping("/board/write")
     public String goWrite(Model model) {
@@ -56,7 +50,7 @@ public class BoardController {
 
         if(postId != 1L){
             //성공
-            mav.addObject("data", new Message("게시글 등록이 완료되었습니다", "/"));
+            mav.addObject("data", new Message("게시글 등록이 완료되었습니다", "/board/view/"+postId));
             mav.setViewName("message");
         }
         else{
@@ -79,5 +73,15 @@ public class BoardController {
         return "board/v_post";
     }
     //글 수정
+
     //글 삭제
+    @GetMapping("/board/delete/{postId}")
+    public ModelAndView deletePost(@PathVariable("postId") Long id){
+        boardService.deletePostById(id);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("data", new Message("게시글 삭제를 완료했습니다.", "/"));
+        mav.setViewName("message");
+        return mav;
+    }
 }

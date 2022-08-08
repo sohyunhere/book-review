@@ -64,4 +64,9 @@ public class BoardService {
 
         post.updateViewCount(viewCount);
     }
+
+    //게시글 삭제하기
+    public void deletePostById(Long id){
+        boardRepo.deleteById(id);
+    }
 }
