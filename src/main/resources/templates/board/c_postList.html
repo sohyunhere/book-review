@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:include="layout/fragments :: html_head"></head>
+    <link rel="stylesheet" href="/css/main.css">
+    <title>카테고리 페이지</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="layout/fragments :: header"></div>
+    <div th:replace="layout/fragments :: menu"></div>
+</div>
+<main class="container">
+    <div class = "container">
+        <table class="table table-hover table-striped text-center" style="border: 1px solid;">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>등록일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td><span th:text="${post.postId}">1</span></td>
+                <td><a th:href="@{/board/view/{postId}(postId= ${post.postId})}"><span th:text="${post.postTitle}"></span></a></td>
+                <td><span th:text="${post.getMember().memberNickname}">박소현</span></td>
+                <td><span th:text="${post.writtenDate}">2022.07.11</span></td>
+                <td><span th:text="${post.viewCount}">9</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</main>
+
+<div th:replace="layout/fragments :: footer"></div>
+</body>
+</html>

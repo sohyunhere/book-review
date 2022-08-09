@@ -1,7 +1,5 @@
 package com.example.bookreview.user.model;
-;
-import com.example.bookreview.board.model.Post;
-import com.example.bookreview.board.model.Comments;
+
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

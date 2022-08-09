@@ -5,7 +5,6 @@ import com.example.bookreview.user.model.SignupDto;
 import com.example.bookreview.user.repo.MemberQueryRepo;
 import com.example.bookreview.user.repo.MemberRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +24,6 @@ public class MemberService implements UserDetailsService {
     private final MemberRepo memberRepo;
     private final MemberQueryRepo memberQueryRepo;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
 
     @Override// 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 MemberInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

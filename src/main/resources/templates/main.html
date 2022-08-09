@@ -9,12 +9,7 @@
 <body>
 <div class="container">
   <div th:replace="layout/fragments :: header"></div>
-
-  <div class="nav-scroller py-1 mb-2">
-    <nav class="nav d-flex justify-content-between">
-      <a class="p-2 link-secondary" th:each="cate : ${categories}" th:href="@{#}" th:text="${cate.getCategoryName()}"></a>
-    </nav>
-  </div>
+  <div th:replace="layout/fragments :: menu"></div>
 </div>
 
 <main class="container">

@@ -69,4 +69,9 @@ public class BoardService {
     public void deletePostById(Long id){
         boardRepo.deleteById(id);
     }
+
+    //카테고리 아이디별 게시글 리스트
+    public List<Post> findListByCategoryId(Long id){
+        return boardRepo.findByCategoryCategoryId(id);
+    }
 }
