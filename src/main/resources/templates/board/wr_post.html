@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <head th:include="layout/fragments :: html_head"></head>
     <link rel="stylesheet" href="/css/main.css">
-    <script src="/js/writePost.js"> </script>
+
     <title>글쓰기 페이지</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 </head>
 <body>
 <div class="container">
@@ -50,6 +52,21 @@
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
             <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+<!--            <div id="editor" name="editor"></div>-->
+<!--            <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>-->
+<!--            <script>-->
+<!--                const Editor = toastui.Editor;-->
+
+<!--                const editor = new Editor({-->
+<!--                    el: document.querySelector('#editor'),-->
+<!--                    height: '600px',-->
+<!--                    initialEditType: 'wysiwyg',-->
+<!--                    initialValue: '',-->
+<!--                    previewStyle: 'vertical'-->
+<!--                });-->
+
+<!--                // editor.getMarkdown();-->
+<!--            </script>-->
         </div>
 
         <div class="mb-3">
@@ -64,4 +81,5 @@
 </div>
 <div th:replace="layout/fragments :: footer"></div>
 </body>
+<script src="/js/writePost.js"> </script>
 </html>

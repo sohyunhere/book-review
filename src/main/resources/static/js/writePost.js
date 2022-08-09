@@ -28,6 +28,11 @@ function checkAll() {
         writePostForm.content.focus();
         return false;
     }
+    // if(!checkExistData(writePostForm.editor.value, "내용울")){
+    //     writePostForm.editor.focus();
+    //     return false;
+    // }
+
     return true;
 }
 function checkReadDate(value){

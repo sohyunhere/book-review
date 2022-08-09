@@ -78,4 +78,12 @@ public class BoardController {
         mav.setViewName("message");
         return mav;
     }
+
+    //내가 작성한 글게시글
+    @GetMapping("/board/mypage")
+    public String getMyPost(Authentication auth){
+        Member member = (Member)auth.getPrincipal();
+
+        return "main";
+    }
 }
