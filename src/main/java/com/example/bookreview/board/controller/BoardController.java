@@ -58,10 +58,9 @@ public class BoardController {
     //글 보기 + 조회수 1씩 올리기
     @GetMapping("/board/view/{postId}")
     public String postView(@PathVariable("postId") Long id, Model model){
-        Post post = boardService.findPostBypostId(id);
-        Long countVisit = post.getViewCount() + 1L;
 
-        boardService.updateVisit(id, countVisit);
+        Post post = boardService.findPostBypostId(id);
+        boardService.updateVisit(id, post.getViewCount());
 
         model.addAttribute("post", post);
         return "board/v_post";

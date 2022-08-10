@@ -61,9 +61,4 @@ public class Post {
     public Post() {
 
     }
-
-    // 조회수
-    public void updateViewCount(Long viewCount){
-        this.viewCount = viewCount;
-    }
 }

@@ -3,6 +3,7 @@ package com.example.bookreview.board.service;
 import com.example.bookreview.board.model.Category;
 import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.model.PostDto;
+import com.example.bookreview.board.repo.BoardQueryRepo;
 import com.example.bookreview.board.repo.BoardRepo;
 import com.example.bookreview.board.repo.CategoryRepo;
 import com.example.bookreview.user.model.Member;
@@ -21,6 +22,7 @@ public class BoardService {
 
     private final BoardRepo boardRepo;
     private final CategoryRepo categoryRepo;
+    private final BoardQueryRepo boardQueryRepo;
     //글 작성 등록
     @Transactional
     public Long registerPost(PostDto dto, Member user){
@@ -59,10 +61,7 @@ public class BoardService {
     //조회수 올리기
     @Transactional
     public void updateVisit(Long id, Long viewCount){
-        Post post = boardRepo.findById(id).orElseThrow(()->
-                new IllegalStateException("해당 게시글이 존재하지 않습니다."));
-
-        post.updateViewCount(viewCount);
+        boardQueryRepo.updateView(id, viewCount+1L);
     }
 
     //게시글 삭제하기
