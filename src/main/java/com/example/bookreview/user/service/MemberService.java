@@ -73,18 +73,16 @@ public class MemberService implements UserDetailsService {
     }
 
     //닉네임 수정
+    @Transactional
     public Member updateNickname(Long id, String nickname){
-        Optional<Member> result = Optional.ofNullable(memberRepo.findByMemberId(id).orElseThrow(() -> {
-            return new IllegalArgumentException("회원 찾기 실패");
-        }));
 
-        if(result.isPresent()){
-            Member member = result.get();
-            member.updateNickname(nickname);
+        Optional<Member> result = memberQueryRepo.updateNickname(id, nickname);
 
-            return member;
+        if(result.isEmpty()){
+            //예외처리 없을때
         }
-        return null;
+        return result.get();
+
     }
 
     @Transactional

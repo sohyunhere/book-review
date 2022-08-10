@@ -32,12 +32,13 @@ public class MemberQueryRepo extends QuerydslRepositorySupport {
                 .where(member.memberId.eq(id))
                 .fetchOne());
     }
-    public void updateNickname(Long id, String nickName){
+    public Optional<Member> updateNickname(Long id, String nickName){
         jpaQueryFactory
                 .update(member)
                 .set(member.memberNickname, nickName)
                 .where(member.memberId.eq(id))
                 .execute();
+        return findByMemberId(id);
     }
 
     public void updatePassword(Long id, String password){

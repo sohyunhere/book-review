@@ -43,9 +43,6 @@ public class Member implements UserDetails, Serializable{
     public Member() {
 
     }
-    public void updateNickname(String memberNickname){
-        this.memberNickname = memberNickname;
-    }
     @Transactional
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
