@@ -7,7 +7,7 @@ function checkAll() {
     if (!checkPassword(changePasswordForm.newPassword.value, changePasswordForm.newPassword2.value)) {
         return false;
     }
-    return true;
+   return true;
 }
 function checkExistData(value, dataName) {
     if (value == "") {

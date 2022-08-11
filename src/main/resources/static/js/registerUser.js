@@ -8,7 +8,39 @@ function checkAll() {
     if (!checkExistData(registerForm.nickname.value, "닉네임")) {
         return false;
     }
-    return true;
+    if(confirm("회원가입을 하시겠습니까?")) {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        $.ajax({
+            async: true,
+            type : "post",
+            data : JSON.stringify({
+                email : $("#email").val(),
+                password : $("#password").val(),
+                nickname : $("#nickname").val()
+            }),
+            url : "/member/register",
+            contentType : "application/json; charset=UTF-8",
+            beforeSend : function(xhr){
+                xhr.setRequestHeader(header, token);
+            },
+            success :
+                function(result){
+                alert(result);
+                if(result == 1){
+                    alert("회원가입이 완료되었습니다. 감사합니다.");
+                    location.href = "signinForm.html";
+                }else{
+                    alert("회원가입에 실패했습니다. 다시 가입해주세요.");
+                }
+            },
+            error :
+                function (request, status, error){
+                    alert("회원 가입 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
+                }
+        });
+    }
+
 }
 function checkMail(mail) {
     //mail이 입력되었는지 확인하기

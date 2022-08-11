@@ -4,7 +4,6 @@ import com.example.bookreview.board.model.Category;
 import com.example.bookreview.board.repo.CategoryRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,13 +13,10 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepo categoryRepo;
-    @Transactional
+
     public Category findCategoryById(Long id){
-        Optional<Category> result =  categoryRepo.findByCategoryId(id);
-        if(result.isPresent()){
-            return result.get();
-        }
-        return null;
+        Optional<Category> result = Optional.ofNullable(categoryRepo.findByCategoryId(id).orElseThrow(() -> new IllegalStateException("카테고리가 존재하지 않습니다.")));
+        return result.get();
     }
 
     public List<Category> findAll(){

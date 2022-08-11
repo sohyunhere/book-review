@@ -28,47 +28,28 @@ public class MemberService implements UserDetailsService {
     @Override// 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 MemberInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 시큐리티에서 지정한 서비스이기 때문에 이 메소드를 필수로 구현
-        Optional<Member> result = memberRepo.findByMemberEmail(username);
-        if(result.isPresent()){
-            return result.get();
-        }
-        return null;
+        Optional<Member> result = Optional.ofNullable(memberRepo.findByMemberEmail(username).orElseThrow(
+                () -> new IllegalStateException("사용자가 존재하지 않습니다.")
+        ));
+        return result.get();
     }
 
     //회원가입
     @Transactional
-    public boolean join(SignupDto signupDto){
-        Optional<Member> result = memberRepo.findByMemberEmail(signupDto.getEmail());
-        //이메일 중복확인
-        if(result.isEmpty()){
-            //이메일 중복 아님
-                String encodedPassword = passwordEncoder.encode(signupDto.getPassword());
-                signupDto.setPassword(encodedPassword);
+    public void join(SignupDto signupDto) throws Exception {
+        String encodedPassword = passwordEncoder.encode(signupDto.getPassword());
+        signupDto.setPassword(encodedPassword);
 
-                Member saveMember = signupDto.toEntity();
-                memberRepo.save(saveMember);
-                return true;
-        }
-        return false;
+        Member saveMember = signupDto.toEntity();
+        memberRepo.save(saveMember);
     }
-
-    //회원 id에 대한 회원 조회
-    public Member findMemberById(Long id){
-        Optional<Member> result = memberRepo.findByMemberId(id);
-        if(result.isEmpty()){
-            System.out.println("아이디에 해당하는 멤버가 없음/n");
-        }
-        return result.get();
-    }
-
-    //전체 회원 조회
 
     //회원 email에 대한 회원 조회
     public Member findMemberByEmail(String email){
-        Optional<Member> result = memberRepo.findByMemberEmail(email);
-        if(result.isEmpty()){
-            System.out.println("email에 해당하는 멤버가 없음/n");
-        }
+        Optional<Member> result = Optional.ofNullable(memberRepo.findByMemberEmail(email).orElseThrow(
+                () -> new IllegalStateException("email에 해당하는 사용자가 존재하지 않습니다."))
+        );
+
         return result.get();
     }
 
@@ -80,6 +61,7 @@ public class MemberService implements UserDetailsService {
 
         if(result.isEmpty()){
             //예외처리 없을때
+            throw new IllegalArgumentException();
         }
         return result.get();
 
@@ -87,15 +69,12 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     //비밀번호 수정
-    public Long changePassword (Member member, String originPW, String newPW) {
+    public void changePassword (Member member, String originPW, String newPW) throws Exception {
        if(passwordEncoder.matches(originPW, member.getMemberPassword())){
            //true
            memberQueryRepo.updatePassword(member.getMemberId(), newPW);
-           return member.getMemberId();
-       }else{
-           return -1L;
        }
-
+       throw new Exception();
     }
 
     public void changeSession(Member member){

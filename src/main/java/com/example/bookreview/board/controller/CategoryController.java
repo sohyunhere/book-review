@@ -17,12 +17,14 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
     private final BoardService boardService;
-    @GetMapping("/category/{categoryId}")
-    public String postListByCategory(@PathVariable("categoryId") Long id, Model model){
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
-        List<Post> posts = boardService.findListByCategoryId(id);
-        model.addAttribute("posts", posts);
-        return "board/c_postList";
-    }
+
+    //카테고리별 게시글 리스트 출력
+//    @GetMapping("/category/{categoryId}")
+//    public String postListByCategory(@PathVariable("categoryId") Long id, Model model){
+//        List<Category> categories = categoryService.findAll();
+//        model.addAttribute("categories", categories);
+//        List<Post> posts = boardService.findListByCategoryId(id);
+//        model.addAttribute("posts", posts);
+//        return "board/c_postList";
+//    }
 }
