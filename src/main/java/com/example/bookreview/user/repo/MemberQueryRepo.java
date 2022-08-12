@@ -38,7 +38,7 @@ public class MemberQueryRepo extends QuerydslRepositorySupport {
         return findByMemberId(id);
     }
 
-    public void updatePassword(Long id, String password){
+    public Optional<Member> updatePassword(Long id, String password){
         String encodedPassword = passwordEncoder.encode(password);
 
         jpaQueryFactory
@@ -46,5 +46,7 @@ public class MemberQueryRepo extends QuerydslRepositorySupport {
                 .set(member.memberPassword, encodedPassword)
                 .where(member.memberId.eq(id))
                 .execute();
+
+        return findByMemberId(id);
     }
 }

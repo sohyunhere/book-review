@@ -5,6 +5,37 @@ function checkNickname() {
     if(!checkSameNickname()){
         return false;
     }
+
+    if(confirm("닉네임을 변경하시겠습니까?")) {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+
+        $.ajax({
+            async: true,
+            type : "post",
+            data : {
+                "nickname" : $("#nickname").val()
+            },
+            url : "/member/mypage/nickname",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader(header, token);
+            },
+            success:
+                function (result) {
+                    if (result == 1) {
+                        alert("닉네임 수정이 완료되었습니다");
+                        location.href = "mypage";
+                    } else {
+                        alert("닉네임 수정을 실패되었습니다.")
+
+                    }
+                },
+            error :
+                function (request, status, error){
+                    alert("닉네임 수정 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
+                }
+        });
+    }
     return true;
 }
 function checkExistData(value, dataName) {

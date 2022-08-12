@@ -26,10 +26,9 @@ function checkAll() {
             },
             success :
                 function(result){
-                alert(result);
                 if(result == 1){
                     alert("회원가입이 완료되었습니다. 감사합니다.");
-                    location.href = "signinForm.html";
+                    location.href = "/member/login";
                 }else{
                     alert("회원가입에 실패했습니다. 다시 가입해주세요.");
                 }

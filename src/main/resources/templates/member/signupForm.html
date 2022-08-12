@@ -4,9 +4,6 @@
     <head th:include="layout/fragments :: html_head"></head>
     <link href="/css/signin.css" rel="stylesheet">
     <title>회원가입 페이지</title>
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
-
 </head>
 <body class="text-center">
 
@@ -14,13 +11,11 @@
     <form name="registerForm">
 
         <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
-
         <div class="form-floating">
             <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
             <label for="email">Email address</label>
             <button class="w-100 btn btn-lg btn-primary" type="button" onclick="emailCheck()">이메일 중복체크</button>
         </div>
-
         <div class="form-floating">
             <input type="password" class="form-control" id="password" placeholder="Password" name="password">
             <label for="password">Password</label>
@@ -42,7 +37,6 @@
     <a class="btn btn-sm btn-outline-secondary" th:href="@{/member/login}">로그인 하기</a>
 </main>
 </body>
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script src="/js/registerUser.js"> </script>
 <script src="/js/checkEmailDuplicate.js"> </script>
 </html>

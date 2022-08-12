@@ -7,6 +7,36 @@ function checkAll() {
     if (!checkPassword(changePasswordForm.newPassword.value, changePasswordForm.newPassword2.value)) {
         return false;
     }
+    if(confirm("비밀번호를 변경하시겠습니까?")){
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+        $.ajax({
+            async: true,
+            type : "post",
+            data : {
+                "originPassword" : $("#originPassword").val(),
+                "newPassword" : $("#newPassword").val()
+            },
+            url : "/member/mypage/password",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader(header, token);
+            },
+            success:
+                function (result) {
+                    if (result == 1) {
+                        alert("비밀번호 변경이 완료되었습니다");
+                        location.href = "/member/mypage";
+                    } else {
+                        alert("현재 비밀번호가 일치하지 않습니다.")
+
+                    }
+                },
+            error :
+                function (request, status, error){
+                    alert("비밀번호 변경 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
+                }
+        });
+    }
    return true;
 }
 function checkExistData(value, dataName) {

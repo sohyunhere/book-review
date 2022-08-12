@@ -69,12 +69,19 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     //비밀번호 수정
-    public void changePassword (Member member, String originPW, String newPW) throws Exception {
+    public Member changePassword (Member member, String originPW, String newPW) throws Exception {
        if(passwordEncoder.matches(originPW, member.getMemberPassword())){
            //true
-           memberQueryRepo.updatePassword(member.getMemberId(), newPW);
+           Optional<Member> result =  memberQueryRepo.updatePassword(member.getMemberId(), newPW);
+           if(result.isEmpty()){
+               //예외처리 없을때
+               throw new IllegalArgumentException();
+           }
+           return result.get();
+       }else{
+           throw new Exception();
        }
-       throw new Exception();
+
     }
 
     public void changeSession(Member member){

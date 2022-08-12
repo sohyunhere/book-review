@@ -12,13 +12,7 @@ function emailCheck(){
                 async: true,
                 type : "post",
                 data : {"email" : email},
-                // data:  JSON.stringify({
-                //     "email" : email
-                // }),
                 url : "/member/emailCheck",
-                // contentType : "application/json; charset=UTF-8",
-                // dataType: 'JSON',
-                // dataType : "text",
 
                 beforeSend: function(xhr){
                     xhr.setRequestHeader(header, token);
