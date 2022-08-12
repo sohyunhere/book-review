@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface BoardRepo extends JpaRepository<Post, Long> {
     List<Post> findByCategoryCategoryId(Long categoryId);
+    List<Post> findByMemberMemberId(Long memberId);
 }

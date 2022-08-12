@@ -4,42 +4,14 @@
     <head th:include="layout/fragments :: html_head"/>
     <link rel="stylesheet" href="/css/main.css">
     <title>마이 페이지</title>
-   </head>
+</head>
 <body>
 <div class="container">
     <div th:replace="layout/fragments :: header"></div>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-<!--            <div th:include="layout/fragments :: mypageSidebar"></div>-->
-            <div class="col-3 bd-sidebar">
-                <a href="/member/mypage" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <span class="fs-4">My page</span>
-                </a>
-                <hr>
-                <ul class="list-unstyled fw-normal pb-2 small">
-                    <li class="nav-item">
-                        <a href="/board/mypost" class="nav-link active" aria-current="page">
-                            작성한 게시글
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            작성한 댓글
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            나의 업로드 위치/공간
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            나의 통계
-                        </a>
-                    </li>
-                </ul>
-                <hr>
-            </div>
+            <div th:replace="layout/myPageFragment :: mypageSidebar"></div>
+
             <main class="col-9 py-md-3 pl-md-5 bd-content">
                 <div class="bd-intro pt-2 ps-lg-2">
                     <form name="changeNameForm">
@@ -66,5 +38,5 @@
 </div>
 <div th:replace="layout/fragments :: footer"></div>
 </body>
-<script src="/js/changeName.js"></script>
+<script src="/js/user/changeName.js"></script>
 </html>

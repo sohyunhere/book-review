@@ -58,15 +58,14 @@
         </div>
     </div>
 
-    <div th:fragment="mypageSidebar">
-        <div class="col-3 bd-sidebar">
+    <div th:fragment="mypageSidebar" class="col-3 bd-sidebar">
             <a href="/member/mypage" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 <span class="fs-4">My page</span>
             </a>
             <hr>
             <ul class="list-unstyled fw-normal pb-2 small">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
+                    <a href="/board/mypost" class="nav-link active" aria-current="page">
                         작성한 게시글
                     </a>
                 </li>
@@ -87,7 +86,6 @@
                 </li>
             </ul>
             <hr>
-        </div>
     </div>
 
     <div th:fragment="footer">

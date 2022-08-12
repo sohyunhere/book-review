@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class = "container" th:fragment="postList">
+        <table class="table table-hover table-striped text-center" style="border: 1px solid;">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>등록일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td><span th:text="${post.postId}">1</span></td>
+                <td><a th:href="@{/board/view/{postId}(postId= ${post.postId})}"><span th:text="${post.postTitle}"></span></a></td>
+                <td><span th:text="${post.getMember().memberNickname}">박소현</span></td>
+                <td><span th:text="${post.writtenDate}">2022.07.11</span></td>
+                <td><span th:text="${post.viewCount}">9</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

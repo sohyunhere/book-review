@@ -26,13 +26,13 @@ public class BoardController {
     private final BoardService boardService;
 
     //글쓰기 페이지로 이동
-//    @GetMapping("/board/write")
-//    public String goWrite(Model model) {
-//        List<Category> categories = categoryService.findAll();
-//        model.addAttribute("categories", categories);
-//
-//        return "board/wr_post";
-//    }
+    @GetMapping("/board/write")
+    public String goWrite(Model model) {
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
+
+        return "board/wr_post";
+    }
 
     //글 작성
 //    @PostMapping("/board/write")
@@ -56,15 +56,15 @@ public class BoardController {
 //    }
 
     //글 보기 + 조회수 1씩 올리기
-//    @GetMapping("/board/view/{postId}")
-//    public String postView(@PathVariable("postId") Long id, Model model){
-//
-//        Post post = boardService.findPostBypostId(id);
-//        boardService.updateVisit(id, post.getViewCount());
-//
-//        model.addAttribute("post", post);
-//        return "board/v_post";
-//    }
+    @GetMapping("/board/view/{postId}")
+    public String postView(@PathVariable("postId") Long id, Model model){
+
+        Post post = boardService.findPostBypostId(id);
+        boardService.updateVisit(id, post.getViewCount());
+
+        model.addAttribute("post", post);
+        return "board/v_post";
+    }
     //글 수정
 
     //글 삭제
@@ -79,10 +79,11 @@ public class BoardController {
 //    }
 
     //내가 작성한 글게시글
-//    @GetMapping("/board/mypage")
-//    public String getMyPost(Authentication auth){
-//        Member member = (Member)auth.getPrincipal();
-//
-//        return "main";
-//    }
+    @GetMapping("/board/mypost")
+    public String getMyPost(Authentication auth, Model model){
+        Member member = (Member)auth.getPrincipal();
+        List<Post> posts = boardService.findListByUserId(member.getMemberId());
+        model.addAttribute("posts", posts);
+        return "member/myPost";
+    }
 }

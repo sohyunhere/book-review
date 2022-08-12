@@ -65,5 +65,7 @@ public class BoardService {
     }
 
     //내가 작성한 글게시글 리스트 반환
-//    public List<>
+    public List<Post> findListByUserId(Long userId){
+        return boardRepo.findByMemberMemberId(userId);
+    }
 }
