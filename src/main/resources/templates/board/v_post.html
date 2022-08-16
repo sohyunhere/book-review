@@ -4,6 +4,7 @@
     <head th:include="layout/fragments :: html_head"></head>
     <link rel="stylesheet" href="/css/main.css">
     <title>게시글 화면 페이지</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 <body>
 <div class="container">
@@ -41,14 +42,21 @@
                     <label for="category" class="form-label">카테고리</label>
                     <input type="text" class="form-control" id="category" name="category" th:value="${post.category.categoryName}" disabled>
                 </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">내용</label>
-                    <input type="text" class="form-control" id="content" name="content" th:value="${post.content}" disabled>
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="content" class="form-label">내용</label>-->
+<!--                    <input type="text" class="form-control" id="content" name="content" th:value="${post.content}" disabled>-->
+<!--                </div>-->
+
                 <div class="mb-3">
                     <label for="writtenDate" class="form-label">작성일</label>
                     <input type="text" class="form-control" id="writtenDate" name="writtenDate" th:value="${post.writtenDate}" disabled>
                 </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">내용</label>
+                    <input type="hidden" id="content" name="content" th:value="${post.content}">
+                </div>
+                <div id="viewer"></div>
+
             </form>
         </div>
     </div>
@@ -62,5 +70,14 @@
 </div>
 <div th:replace="layout/fragments :: footer"></div>
 <script src="/js/board/deletePost.js"> </script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+    const viewer = toastui.Editor.factory({
+        el: document.querySelector('#viewer'),
+        viewer: true,
+        height: '500px',
+        initialValue: $("#content").val()
+    });
+</script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 function checkAll() {
-    if (!checkExistData(updatePostForm.content.value, "내용을")) {
-        updatePostForm.content.focus();
+    if (!checkExistData(editor.getMarkdown(), "내용을")) {
         return false;
     }
     if(confirm("게시글을 수정하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let postId = $("#postId").val();
+        let content = editor.getHTML();
         $.ajax({
             async: true,
             type : "post",
@@ -17,7 +17,8 @@ function checkAll() {
                 author : $("#author").val(),
                 publisher : $("#publisher").val(),
                 categoryId : $("#categoryId").val(),
-                content : $("#content").val(),
+                // content : $("#content").val(),
+                content : content,
                 formFile : $("#formFile").val()
             }),
             url : "/board/update/"+postId,

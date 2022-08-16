@@ -24,19 +24,18 @@ function checkAll() {
         writePostForm.category.focus();
         return false;
     }
-    if (!checkExistData(writePostForm.content.value, "내용을")) {
-        writePostForm.content.focus();
-        return false;
-    }
-    // if(!checkExistData(writePostForm.editor.value, "내용울")){
-    //     writePostForm.editor.focus();
+    // if (!checkExistData(writePostForm.content.value, "내용을")) {
+    //     writePostForm.content.focus();
     //     return false;
     // }
+    if(!checkExistData(editor.getMarkdown(), "내용울")){
+        return false;
+    }
 
     if(confirm("게시글을 등록하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
-
+        let content = editor.getHTML();
         $.ajax({
             async: true,
             type : "post",
@@ -47,7 +46,8 @@ function checkAll() {
                 author : $("#author").val(),
                 publisher : $("#publisher").val(),
                 categoryId : $("#categoryId").val(),
-                content : $("#content").val(),
+                // content : $("#content").val(),
+                content : content,
                 formFile : $("#formFile").val()
             }),
             url : "/board/write",
