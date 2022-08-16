@@ -26,4 +26,22 @@ public class MainController {
         model.addAttribute("posts", posts);
         return "main";
     }
+    //최신순
+//    @GetMapping("/latest")
+//    public String latest(Model model) throws IOException {
+//        List<Category> categories = categoryService.findAll();
+//        model.addAttribute("categories", categories);
+////        List<Post> posts = boardService.findAll();
+////        model.addAttribute("posts", posts);
+//        return "main";
+//    }
+//    //조회순
+//    @GetMapping("/popular")
+//    public String popular(Model model) throws IOException {
+//        List<Category> categories = categoryService.findAll();
+//        model.addAttribute("categories", categories);
+////        List<Post> posts = boardService.findAll();
+////        model.addAttribute("posts", posts);
+//        return "main";
+//    }
 }

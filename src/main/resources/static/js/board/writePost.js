@@ -33,6 +33,39 @@ function checkAll() {
     //     return false;
     // }
 
+    if(confirm("게시글을 등록하시겠습니까?")) {
+        let header = $("meta[name='_csrf_header']").attr('content');
+        let token = $("meta[name='_csrf']").attr('content');
+
+        $.ajax({
+            async: true,
+            type : "post",
+            data : JSON.stringify({
+                postTitle : $("#postTitle").val(),
+                readDate : $("#readDate").val(),
+                bookTitle : $("#bookTitle").val(),
+                author : $("#author").val(),
+                publisher : $("#publisher").val(),
+                categoryId : $("#categoryId").val(),
+                content : $("#content").val(),
+                formFile : $("#formFile").val()
+            }),
+            url : "/board/write",
+            contentType : "application/json; charset=UTF-8",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader(header, token);
+            },
+            success:
+                function (postId) {
+                    alert("게시글이 등록되었습니다 완료되었습니다");
+                    location.href = "/board/view/"+ postId;
+                },
+            error :
+                function (request, status, error){
+                    alert("게시글 등록 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
+                }
+        });
+    }
     return true;
 }
 function checkReadDate(value){

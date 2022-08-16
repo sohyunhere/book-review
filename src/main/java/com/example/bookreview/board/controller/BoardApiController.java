@@ -1,0 +1,43 @@
+package com.example.bookreview.board.controller;
+
+import com.example.bookreview.board.model.PostDto;
+import com.example.bookreview.board.service.BoardService;
+import com.example.bookreview.user.model.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+@RequiredArgsConstructor
+@RestController
+public class BoardApiController {
+    private final BoardService boardService;
+
+    //글 작성
+    @PostMapping("/board/write")
+    public int write(@RequestBody PostDto dto, Authentication auth) {
+        Member member = (Member) auth.getPrincipal();
+
+        Long postId;
+        try {
+            postId = boardService.registerPost(dto, member);
+        } catch (Exception e) {
+            throw e;
+        }
+        return Math.toIntExact(postId);
+
+    }
+
+    //글 수정
+
+    //글 삭제
+    @DeleteMapping("/board/{postId}")
+    public int deletePost(@PathVariable("postId") Long id){
+        Long postId;
+        try {
+            postId = boardService.deletePostById(id);
+        }catch (Exception e){
+            throw e;
+        }
+        return Math.toIntExact(postId);
+    }
+}

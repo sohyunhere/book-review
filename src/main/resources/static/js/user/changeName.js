@@ -22,13 +22,8 @@ function checkNickname() {
             },
             success:
                 function (result) {
-                    if (result == 1) {
-                        alert("닉네임 수정이 완료되었습니다");
-                        location.href = "mypage";
-                    } else {
-                        alert("닉네임 수정을 실패되었습니다.")
-
-                    }
+                    alert("닉네임 수정이 완료되었습니다");
+                    location.href = "mypage";
                 },
             error :
                 function (request, status, error){

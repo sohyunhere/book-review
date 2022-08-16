@@ -23,7 +23,7 @@ public class BoardService {
     private final CategoryService categoryService;
     //글 작성 등록
     @Transactional
-    public void registerPost(PostDto dto, Member user){
+    public Long registerPost(PostDto dto, Member user){
 
         Date today = new Date();
         dto.setMember(user);
@@ -32,15 +32,24 @@ public class BoardService {
 
         dto.setCategory(categoryService.findCategoryById(dto.getCategoryId()));
         Post post = dto.toEntity();
-        boardRepo.save(post);
+        Post savedPost = boardRepo.save(post);
 
+        return savedPost.getPostId();
     }
     //글 목록 다 가져가기
     public List<Post> findAll(){
         return boardRepo.findAll();
     }
 
-    @Transactional
+    //게시글 최신순으로 가져가기
+//    public List<Post> findAllByLatest(){
+//
+//    }
+//    //게시글 조회순으로 가져가기
+//    public List<Post> findAllByView(){
+//
+//    }
+
     //postId에 해당하는 post객체 가져오기
     public Post findPostBypostId(Long id){
         Optional<Post> result = Optional.ofNullable(boardRepo.findById(id).orElseThrow(() -> new IllegalStateException("post가 존재하지 않습니다.")));
@@ -55,8 +64,11 @@ public class BoardService {
     }
 
     //게시글 삭제하기
-    public void deletePostById(Long id){
+    @Transactional
+    public Long deletePostById(Long id){
         boardRepo.deleteById(id);
+
+        return id;
     }
 
     //카테고리 아이디별 게시글 리스트
@@ -68,4 +80,5 @@ public class BoardService {
     public List<Post> findListByUserId(Long userId){
         return boardRepo.findByMemberMemberId(userId);
     }
+
 }

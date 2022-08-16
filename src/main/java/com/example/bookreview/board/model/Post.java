@@ -21,7 +21,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POST_ID_GENERATOR")
     private Long postId;
 
-    @ManyToOne (cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
@@ -44,14 +44,14 @@ public class Post {
     private String author;
     private String publisher;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @PrimaryKeyJoinColumn(name="LOCATION_ID")
     private Location location;
 
     @OneToMany(mappedBy = "post")
     private List<AttachedFile> attachedFileList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
