@@ -57,7 +57,7 @@ function checkAll() {
             },
             success:
                 function (postId) {
-                    alert("게시글이 등록되었습니다 완료되었습니다");
+                    alert("게시글 등록이 완료되었습니다");
                     location.href = "/board/view/"+ postId;
                 },
             error :

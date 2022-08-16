@@ -6,6 +6,7 @@ import com.example.bookreview.board.repo.BoardQueryRepo;
 import com.example.bookreview.board.repo.BoardRepo;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,13 +43,17 @@ public class BoardService {
     }
 
     //게시글 최신순으로 가져가기
-//    public List<Post> findAllByLatest(){
-//
-//    }
-//    //게시글 조회순으로 가져가기
-//    public List<Post> findAllByView(){
-//
-//    }
+    public List<Post> findAllByLatest(){
+        List<Post> list = boardRepo.findAll(Sort.by(Sort.Direction.DESC, "postId"));
+
+        return list;
+    }
+    //게시글 조회순으로 가져가기
+    public List<Post> findAllByView(){
+        List<Post> list = boardRepo.findAll(Sort.by(Sort.Direction.DESC, "viewCount"));
+
+        return list;
+    }
 
     //postId에 해당하는 post객체 가져오기
     public Post findPostBypostId(Long id){
@@ -61,6 +66,11 @@ public class BoardService {
     @Transactional
     public void updateVisit(Long id, Long viewCount){
         boardQueryRepo.updateView(id, viewCount+1L);
+    }
+    //게시글 수정하기
+    @Transactional
+    public void updatePost(Long id, String content){
+        boardQueryRepo.updateContent(id, content);
     }
 
     //게시글 삭제하기

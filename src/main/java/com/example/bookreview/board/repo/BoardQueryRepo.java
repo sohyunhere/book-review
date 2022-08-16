@@ -29,4 +29,12 @@ public class BoardQueryRepo extends QuerydslRepositorySupport {
                 .where(post.postId.eq(id))
                 .execute();
     }
+
+    public void updateContent(Long id, String content){
+        jpaQueryFactory
+                .update(post)
+                .set(post.content, content)
+                .where(post.postId.eq(id))
+                .execute();
+    }
 }

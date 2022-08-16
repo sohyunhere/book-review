@@ -55,7 +55,7 @@
     <div class="d-flex justify-content-end align-items-center">
         <a class="btn btn-sm btn-outline-secondary m-1" th:href="@{/}">목록으로 돌아가기</a>
         <div th:if="${post.member.getMemberEmail().equals(#authentication.getName())}">
-            <a class="btn btn-sm btn-outline-secondary m-1" th:href="@{#}">수정하기</a>
+            <a class="btn btn-sm btn-outline-secondary m-1" th:href="@{/board/update/{postId}(postId=${post.postId})}">수정하기</a>
             <button class="btn btn-sm btn-outline-secondary" type="button" onclick="deletePost()"th:href="@{/board/{postId}(postId=${post.postId})}">삭제하기</button>
         </div>
     </div>

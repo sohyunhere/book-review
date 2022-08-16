@@ -29,11 +29,9 @@ public class BoardWebController {
         return "board/wr_post";
     }
 
-
     //글 보기 + 조회수 1씩 올리기
     @GetMapping("/board/view/{postId}")
     public String postView(@PathVariable("postId") Long id, Model model){
-
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());
 
@@ -48,5 +46,13 @@ public class BoardWebController {
         List<Post> posts = boardService.findListByUserId(member.getMemberId());
         model.addAttribute("posts", posts);
         return "member/myPost";
+    }
+
+    //수정 게시글로 이동
+    @GetMapping("/board/update/{postId}")
+    public String updatePost(@PathVariable("postId") Long id, Model model){
+        Post post = boardService.findPostBypostId(id);
+        model.addAttribute("post", post);
+        return "board/u_post";
     }
 }

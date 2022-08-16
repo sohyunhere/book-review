@@ -28,6 +28,16 @@ public class BoardApiController {
     }
 
     //글 수정
+    @PostMapping("/board/update/{postId}")
+    public int updatePost(@PathVariable("postId") Long id, @RequestBody PostDto dto){
+        try{
+            boardService.updatePost(id,dto.getContent());
+        } catch (Exception e) {
+            throw e;
+        }
+        return Math.toIntExact(id);
+    }
+
 
     //글 삭제
     @DeleteMapping("/board/{postId}")
