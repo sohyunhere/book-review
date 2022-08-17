@@ -4,11 +4,20 @@ import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class BoardApiController {
     private final BoardService boardService;
 
