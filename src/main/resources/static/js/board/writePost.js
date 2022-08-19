@@ -32,6 +32,7 @@ function checkAll() {
         return false;
     }
 
+    alert(editor.getHTML());
     if(confirm("게시글을 등록하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -58,7 +59,7 @@ function checkAll() {
             success:
                 function (postId) {
                     alert("게시글 등록이 완료되었습니다");
-                    location.href = "/board/view/"+ postId;
+                    location.href = "/board/"+ postId;
                 },
             error :
                 function (request, status, error){

@@ -12,7 +12,7 @@
 <div class="container">
     <div th:replace="layout/fragments :: header"></div>
 
-    <form class="p-4" name="writePostForm">
+    <form class="p-4" name="writePostForm" enctype="multipart/form-data">
         <div class="row">
             <div class="col">
                 <div class="mb-3">
@@ -63,6 +63,7 @@
         <div class="d-flex justify-content-end align-items-center">
             <button class="w-100 btn btn-lg btn-primary" type="button" onclick="checkAll()">글 작성</button>
         </div>
+
     </form>
 </div>
 <div th:replace="layout/fragments :: footer"></div>
@@ -81,8 +82,8 @@
 
         hooks : {
             addImageBlobHook : async (blob, callback) => {
-                const upload = uploadImage(blob);
-                callback(upload, "alt text");
+                const upload = await uploadImage(blob);
+                callback(upload, 'alt text');
             }
     }
     });
@@ -92,6 +93,7 @@
         let token = $("meta[name='_csrf']").attr('content');
 
         let formData = new FormData();
+        let fileUrlData;
         formData.append('image', blob); // 이미지를 폼데이터 file로 변경 'image'가 input name이다.
         $.ajax({
             url : 'image/editorUpload',
@@ -106,13 +108,14 @@
             },
             success:
                 function (data){
-                    return data
+                    fileUrlData = data
                 },
             error :
                 function (request, status, error){
                     alert("이미지 없로드 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
                 }
         });
+        return fileUrlData;
     }
 </script>
 </html>

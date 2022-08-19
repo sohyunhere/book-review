@@ -19,7 +19,7 @@
             <tbody>
             <tr th:each="post : ${posts}">
                 <td><span th:text="${post.postId}">1</span></td>
-                <td><a th:href="@{/board/view/{postId}(postId= ${post.postId})}"><span th:text="${post.postTitle}"></span></a></td>
+                <td><a th:href="@{/board/{postId}(postId= ${post.postId})}"><span th:text="${post.postTitle}"></span></a></td>
                 <td><span th:text="${post.getMember().memberNickname}">박소현</span></td>
                 <td><span th:text="${post.writtenDate}">2022.07.11</span></td>
                 <td><span th:text="${post.viewCount}">9</span></td>

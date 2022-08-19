@@ -30,7 +30,7 @@ public class BoardWebController {
     }
 
     //글 보기 + 조회수 1씩 올리기
-    @GetMapping("/board/view/{postId}")
+    @GetMapping("/board/{postId}")
     public String postView(@PathVariable("postId") Long id, Model model){
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());

@@ -12,13 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/editorUpload/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/member/register", "/member/emailCheck").permitAll()
+                    .antMatchers("/", "/member/register", "/member/emailCheck","/latest", "/popular").permitAll()
                     .anyRequest().authenticated()
                     .and()// 로그인 설정
                 .formLogin()
