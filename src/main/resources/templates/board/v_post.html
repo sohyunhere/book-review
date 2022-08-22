@@ -21,6 +21,7 @@
                 <div class="mb-3 mt -3">
                     <label for="postNum" class="form-label">No</label>
                     <input type="text" class="form-control" id="postNum" name="postNum" th:value="${post.postId}" disabled>
+                    <input type="hidden" id="postId" th:value="${post.postId}">
                 </div>
                 <div class="mb-3">
                     <label for="postTitle" class="form-label">도서 제목</label>
@@ -42,10 +43,6 @@
                     <label for="category" class="form-label">카테고리</label>
                     <input type="text" class="form-control" id="category" name="category" th:value="${post.category.categoryName}" disabled>
                 </div>
-<!--                <div class="mb-3">-->
-<!--                    <label for="content" class="form-label">내용</label>-->
-<!--                    <input type="text" class="form-control" id="content" name="content" th:value="${post.content}" disabled>-->
-<!--                </div>-->
 
                 <div class="mb-3">
                     <label for="writtenDate" class="form-label">작성일</label>
@@ -64,12 +61,45 @@
         <a class="btn btn-sm btn-outline-secondary m-1" th:href="@{/}">목록으로 돌아가기</a>
         <div th:if="${post.member.getMemberEmail().equals(#authentication.getName())}">
             <a class="btn btn-sm btn-outline-secondary m-1" th:href="@{/board/update/{postId}(postId=${post.postId})}">수정하기</a>
-            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="deletePost()"th:href="@{/board/{postId}(postId=${post.postId})}">삭제하기</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="deletePost()" >삭제하기</button>
         </div>
     </div>
+    <hr/>
 </div>
+
+<div class="container">
+    <div class="card mb-2 mt-5">
+        <div class="card-header bg-light">
+            <i class="fa fa-comment fa"></i> 댓글
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <textarea class="form-control" id="commentContent" rows="2"></textarea>
+                    <button type="button" class="btn btn-dark mt-3" style="float:right;" onclick="writeComment()">등록</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br/>
+    <div class="card">
+        <div class="card-header">작성자 : 소현</div>
+        <ul id="reply--box" class="list-group">
+            <li id="reply--1" class="list-group-item d-flex justify-content-between">
+                <div>댓글 내용입니다.!</div>
+                <div class="d-flex">
+                    <div class="text-monospace">작성일 : 날짜 &nbsp;</div>
+<!--                    <button class="badge btn-warning">수정</button><span> | </span>-->
+                    <button class="badge btn-danger">삭제</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <div th:replace="layout/fragments :: footer"></div>
-<script src="/js/board/deletePost.js"> </script>
+<script src="/js/board/deletePost.js"></script>
+<script src="/js/board/writeComment.js"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
     const viewer = toastui.Editor.factory({

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 public class Comments {
@@ -24,13 +24,14 @@ public class Comments {
    private String content;
 
    @Temporal(TemporalType.TIMESTAMP)
+   @Column(name = "WRITTENDATE")
    private Date writtenDate;
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @ManyToOne
    @JoinColumn(name = "POST_ID")
    private Post post;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

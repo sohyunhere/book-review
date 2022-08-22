@@ -26,7 +26,7 @@ public class AttachedFile {
     @Temporal(TemporalType.TIMESTAMP)
     private Date writtenDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="POST_ID")
     private Post post;
 

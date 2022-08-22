@@ -32,12 +32,6 @@ public class Member implements UserDetails, Serializable{
     @Column(name = "MEMBER_NICKNAME")
     private String memberNickname;
 
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//    private List<Post> postList;
-//
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//    private List<Comments> commentsList;
-
     private String role;
 
     public Member() {
