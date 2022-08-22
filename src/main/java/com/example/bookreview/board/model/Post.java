@@ -4,10 +4,14 @@ import com.example.bookreview.file.model.AttachedFile;
 import com.example.bookreview.location.model.Location;
 import com.example.bookreview.user.model.Member;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.DELETE_ORPHAN;
 
 @Entity
 @Data
@@ -27,6 +31,8 @@ public class Post {
 
     @Column(name = "POST_TITLE")
     private String postTitle;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "RBOOK_DATE")
     private Date readBookDate;
     @Column(name = "BOOK_TITLE")
@@ -34,6 +40,7 @@ public class Post {
 
     private String content;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "WRITTENDATE")
     private Date writtenDate;
@@ -55,7 +62,9 @@ public class Post {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "post")
+    @Cascade(DELETE_ORPHAN)
+    @OneToMany(mappedBy = "post",fetch = FetchType.EAGER)
+    @OrderBy("commentId ASC")
     private List<Comments> comments;
 
     public Post() {

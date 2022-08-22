@@ -49,7 +49,7 @@ public class BoardApiController {
 
 
     //글 삭제
-    @DeleteMapping("/board/{postId}")
+    @PostMapping("/board/delete/post/{postId}")
     public int deletePost(@PathVariable("postId") Long id){
         Long postId;
         try {

@@ -56,6 +56,8 @@ public class BoardService {
     }
 
     //postId에 해당하는 post객체 가져오기
+    @Transactional //JPA를 사용하다가 연관관계 매핑
+    // comment list가 @onetomany로 되어있기 때문
     public Post findPostBypostId(Long id){
         Optional<Post> result = Optional.ofNullable(boardRepo.findById(id).orElseThrow(() -> new IllegalStateException("post가 존재하지 않습니다.")));
 
@@ -67,6 +69,7 @@ public class BoardService {
     public void updateVisit(Long id, Long viewCount){
         boardQueryRepo.updateView(id, viewCount+1L);
     }
+
     //게시글 수정하기
     @Transactional
     public void updatePost(Long id, String content){

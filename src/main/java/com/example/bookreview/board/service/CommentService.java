@@ -5,6 +5,7 @@ import com.example.bookreview.board.model.CommentsDto;
 import com.example.bookreview.board.repo.CommentRepo;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,6 @@ public class CommentService {
 
     //postId에 따른 댓글 리스트 불러오기
     public List<Comments> findListByPostId(Long postId){
-        return commentRepo.findCommentsByPostPostId(postId);
+        return commentRepo.findCommentsByPostPostId(postId, Sort.by(Sort.Direction.ASC, "commentId"));
     }
 }

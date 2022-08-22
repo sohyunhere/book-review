@@ -29,7 +29,7 @@ function checkAll() {
             success:
                 function (postId) {
                     alert("게시글 수정이 완료되었습니다");
-                    location.href = "/board/view/"+ postId;
+                    location.href = "/board/"+ postId;
                 },
             error :
                 function (request, status, error){

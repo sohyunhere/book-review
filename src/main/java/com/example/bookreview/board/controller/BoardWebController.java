@@ -8,14 +8,17 @@ import com.example.bookreview.board.service.CategoryService;
 import com.example.bookreview.board.service.CommentService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class BoardWebController {
@@ -38,10 +41,7 @@ public class BoardWebController {
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());
 
-        List<Comments> comments = commentService.findListByPostId(id);
-
         model.addAttribute("post", post);
-        model.addAttribute("comments", comments);
         return "board/v_post";
     }
 
