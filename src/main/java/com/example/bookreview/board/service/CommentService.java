@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +36,10 @@ public class CommentService {
     public Long deleteComment(Long commentId){
         commentRepo.deleteById(commentId);
         return commentId;
+    }
+
+    //postId에 따른 댓글 리스트 불러오기
+    public List<Comments> findListByPostId(Long postId){
+        return commentRepo.findCommentsByPostPostId(postId);
     }
 }

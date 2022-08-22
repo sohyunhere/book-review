@@ -1,9 +1,11 @@
 package com.example.bookreview.board.controller;
 
 import com.example.bookreview.board.model.Category;
+import com.example.bookreview.board.model.Comments;
 import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
+import com.example.bookreview.board.service.CommentService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,7 @@ import java.util.List;
 public class BoardWebController {
     private final CategoryService categoryService;
     private final BoardService boardService;
+    private final CommentService commentService;
 
     //글쓰기 페이지로 이동
     @GetMapping("/board/write")
@@ -35,7 +38,10 @@ public class BoardWebController {
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());
 
+        List<Comments> comments = commentService.findListByPostId(id);
+
         model.addAttribute("post", post);
+        model.addAttribute("comments", comments);
         return "board/v_post";
     }
 
