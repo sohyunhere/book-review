@@ -5,7 +5,8 @@ function checkAll() {
     if (!checkPassword(registerForm.password.value, registerForm.password2.value)) {
         return false;
     }
-    if (!checkExistData(registerForm.nickname.value, "닉네임")) {
+    let v = $("#nickname").val().trim();
+    if (!checkExistData(v, "닉네임")) {
         return false;
     }
     if(confirm("회원가입을 하시겠습니까?")) {
@@ -17,7 +18,7 @@ function checkAll() {
             data : JSON.stringify({
                 email : $("#email").val(),
                 password : $("#password").val(),
-                nickname : $("#nickname").val()
+                nickname : v
             }),
             url : "/member/register",
             contentType : "application/json; charset=UTF-8",

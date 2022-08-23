@@ -1,8 +1,9 @@
 function checkNickname() {
-    if (!checkExistData(changeNameForm.nickname.value, "닉네임을")) {
+    let v = $("#nickname").val().trim();
+    if (!checkExistData(v, "닉네임을")) {
         return false;
     }
-    if(!checkSameNickname()){
+    if(!checkSameNickname(v)){
         return false;
     }
 
@@ -14,7 +15,7 @@ function checkNickname() {
             async: true,
             type : "post",
             data : {
-                "nickname" : $("#nickname").val()
+                "nickname" : v
             },
             url : "/member/mypage/nickname",
             beforeSend: function(xhr){
@@ -33,6 +34,7 @@ function checkNickname() {
     }
     return true;
 }
+
 function checkExistData(value, dataName) {
     if (value == "") {
         alert(dataName + " 입력해주세요!");
@@ -40,9 +42,10 @@ function checkExistData(value, dataName) {
     }
     return true;
 }
-function checkSameNickname(){
+
+function checkSameNickname(v){
     let name = changeNameForm.name.value;
-    let change = changeNameForm.nickname.value;
+    let change = v;
 
     if(name == change){
         alert("닉네임이 달라지지 않았습니다.")

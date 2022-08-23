@@ -41,7 +41,6 @@ public class Post {
     private String content;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "WRITTENDATE")
     private Date writtenDate;
 

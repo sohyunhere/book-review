@@ -39,6 +39,7 @@ function checkAll() {
     }
 }
 function checkExistData(value, dataName) {
+    value = value.trim();
     if (value == "") {
         alert(dataName + " 입력해주세요!");
         return false;

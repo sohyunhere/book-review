@@ -31,7 +31,6 @@ function checkAll() {
     if(!checkExistData(editor.getMarkdown(), "내용울")){
         return false;
     }
-
     alert(editor.getHTML());
     if(confirm("게시글을 등록하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
@@ -41,11 +40,11 @@ function checkAll() {
             async: true,
             type : "post",
             data : JSON.stringify({
-                postTitle : $("#postTitle").val(),
+                postTitle : $("#postTitle").val().trim(),
                 readDate : $("#readDate").val(),
-                bookTitle : $("#bookTitle").val(),
-                author : $("#author").val(),
-                publisher : $("#publisher").val(),
+                bookTitle : $("#bookTitle").val().trim(),
+                author : $("#author").val().trim(),
+                publisher : $("#publisher").val().trim(),
                 categoryId : $("#categoryId").val(),
                 // content : $("#content").val(),
                 content : content,
@@ -90,6 +89,7 @@ function checkReadDate(value){
     return true;
 }
 function checkExistData(value, dataName) {
+    value = value.trim();
     if (value == "") {
         alert(dataName + " 입력해주세요!");
         return false;
