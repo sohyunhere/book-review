@@ -94,4 +94,19 @@ public class BoardService {
         return boardRepo.findByMemberMemberId(userId);
     }
 
+    //게시글 검색
+    public List<Post> searchList(String word, int searchType){
+        List<Post> postList;
+        //글 제목, 글 내용, 책 제목, 저자
+        if(searchType == 1){
+            postList=boardRepo.searchByPostTitleOrderByViewCount(word);
+        }else if(searchType == 2){
+            postList=boardRepo.searchByContentOrderByViewCount(word);
+        }else if(searchType == 3){
+            postList=boardRepo.searchByBookTitleOrderByViewCount(word);
+        }else{
+            postList=boardRepo.searchByAuthorOrderByViewCount(word);
+        }
+        return postList;
+    }
 }

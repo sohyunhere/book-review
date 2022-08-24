@@ -1,7 +1,7 @@
 package com.example.bookreview.board.controller;
 
 import com.example.bookreview.board.model.Category;
-import com.example.bookreview.board.model.Comments;
+
 import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
@@ -11,10 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -60,5 +61,19 @@ public class BoardWebController {
         Post post = boardService.findPostBypostId(id);
         model.addAttribute("post", post);
         return "board/u_post";
+    }
+
+    //글 검색
+    @GetMapping("/board/search")
+    public String search(@RequestParam(value="searchType") String type, @RequestParam(value="search") String word, Model model){
+
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
+        List<Post> posts = boardService.searchList(word, Integer.parseInt(type));
+        log.info(posts.get(0).getPostTitle());
+        model.addAttribute("posts", posts);
+
+
+        return "main";
     }
 }

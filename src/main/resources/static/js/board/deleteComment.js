@@ -6,7 +6,7 @@ function deleteComment(commentId) {
         let postId = $("#postId").val();
         $.ajax({
             async: true,
-            type : "post",
+            type : "get",
             url : "/board/delete/comment/"+commentId,
             beforeSend: function(xhr){
                 xhr.setRequestHeader(header, token);
