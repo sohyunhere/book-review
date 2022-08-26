@@ -2,6 +2,7 @@ package com.example.bookreview.board.controller;
 
 import com.example.bookreview.board.model.Category;
 
+import com.example.bookreview.board.model.Comments;
 import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
@@ -50,7 +51,7 @@ public class BoardWebController {
     @GetMapping("/board/mypost")
     public String getMyPost(Authentication auth, Model model){
         Member member = (Member)auth.getPrincipal();
-        List<Post> posts = boardService.findListByUserId(member.getMemberId());
+        List<Post> posts = boardService.findPostListByUser(member.getMemberId());
         model.addAttribute("posts", posts);
         return "member/myPost";
     }
@@ -70,10 +71,18 @@ public class BoardWebController {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         List<Post> posts = boardService.searchList(word, Integer.parseInt(type));
-        log.info(posts.get(0).getPostTitle());
         model.addAttribute("posts", posts);
 
-
         return "main";
+    }
+
+    //내가 작성한 댓글
+    @GetMapping("/board/myComment")
+    public String getMyComment(Authentication auth, Model model) {
+        Member member = (Member) auth.getPrincipal();
+        List<Comments> comments = commentService.findListByEmail(member.getMemberEmail());
+        log.info("comments: "+ comments);
+        model.addAttribute("comments", comments);
+        return "member/myComment";
     }
 }

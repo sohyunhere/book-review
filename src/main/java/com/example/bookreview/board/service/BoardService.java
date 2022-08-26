@@ -5,7 +5,9 @@ import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.repo.BoardQueryRepo;
 import com.example.bookreview.board.repo.BoardRepo;
 import com.example.bookreview.user.model.Member;
+import com.example.bookreview.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +19,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BoardService {
 
     private final BoardRepo boardRepo;
     private final BoardQueryRepo boardQueryRepo;
     private final CategoryService categoryService;
+    private final MemberService memberService;
     //글 작성 등록
     @Transactional
     public Long registerPost(PostDto dto, Member user){
@@ -90,8 +94,9 @@ public class BoardService {
     }
 
     //내가 작성한 글게시글 리스트 반환
-    public List<Post> findListByUserId(Long userId){
-        return boardRepo.findByMemberMemberId(userId);
+    public List<Post> findPostListByUser(Long id){
+        return boardRepo.findByMemberMemberIdOrderByPostIdDesc(id);
+
     }
 
     //게시글 검색

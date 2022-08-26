@@ -14,7 +14,7 @@ import java.util.List;
 import static org.hibernate.annotations.CascadeType.DELETE_ORPHAN;
 
 @Entity
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 public class Post {

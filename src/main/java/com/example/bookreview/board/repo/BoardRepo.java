@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BoardRepo extends JpaRepository<Post, Long> {
     List<Post> findByCategoryCategoryId(Long categoryId);
-    List<Post> findByMemberMemberId(Long memberId);
+    List<Post> findByMemberMemberIdOrderByPostIdDesc(Long memberId);
 
     //글제목으로 검색
     @Query("Select p from Post p where p.postTitle like %?1% order by p.viewCount desc")
