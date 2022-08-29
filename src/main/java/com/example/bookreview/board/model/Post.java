@@ -8,6 +8,7 @@ import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import static org.hibernate.annotations.CascadeType.DELETE_ORPHAN;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Post {
+public class Post  implements Serializable {
 
     @Id
     @Column(name = "POST_ID")

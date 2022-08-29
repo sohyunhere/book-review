@@ -5,13 +5,14 @@ import com.example.bookreview.user.model.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
-public class Comments {
+public class Comments implements Serializable{
    @Id
    @Column(name = "COMMENT_ID")
    @SequenceGenerator(name = "COMMENT_ID_GENERATOR", sequenceName = "COMMENT_SEQ", initialValue = 1, allocationSize = 1)
