@@ -104,13 +104,13 @@ public class BoardService {
         List<Post> postList;
         //글 제목, 글 내용, 책 제목, 저자
         if(searchType == 1){
-            postList=boardRepo.searchByPostTitleOrderByViewCount(word);
+            postList=boardRepo.findByPostTitleContainingOrderByViewCount(word);
         }else if(searchType == 2){
-            postList=boardRepo.searchByContentOrderByViewCount(word);
+            postList=boardRepo.findByContentContainingOrderByViewCount(word);
         }else if(searchType == 3){
-            postList=boardRepo.searchByBookTitleOrderByViewCount(word);
+            postList=boardRepo.findByBookTitleContainingOrderByViewCount(word);
         }else{
-            postList=boardRepo.searchByAuthorOrderByViewCount(word);
+            postList=boardRepo.findByAuthorContainingOrderByViewCount(word);
         }
         return postList;
     }

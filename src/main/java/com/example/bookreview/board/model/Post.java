@@ -19,7 +19,7 @@ import static org.hibernate.annotations.CascadeType.DELETE_ORPHAN;
 @Builder
 @AllArgsConstructor
 public class Post  implements Serializable {
-
+    private static final long serialVersionUID = 1260627612961915463L;
     @Id
     @Column(name = "POST_ID")
     @SequenceGenerator(name = "POST_ID_GENERATOR", sequenceName = "POST_SEQ", initialValue = 1, allocationSize = 1)

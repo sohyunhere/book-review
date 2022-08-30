@@ -50,11 +50,7 @@
         <a class="btn btn-dark" th:href="@{/board/write}">글쓰기</a>
       </div>
     </div>
-    <div th:each="post, i : ${posts}">
-      <input type="hidden" th:id="'post'+${i.index}" th:value="${post}">
-    </div>
-    <input type="hidden" th:id="postSize" th:value="${posts.size}">
-    <input type="hidden" th:id="posts" th:value="${posts}">
+
   <div th:replace="layout/PostFragment :: postList"></div>
   </main>
 

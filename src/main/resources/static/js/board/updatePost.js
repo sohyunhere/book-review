@@ -27,7 +27,6 @@ function checkAll() {
                 author : $("#author").val(),
                 publisher : $("#publisher").val(),
                 categoryId : $("#categoryId").val(),
-                // content : $("#content").val(),
                 content : content,
                 formFile : $("#formFile").val()
             }),
