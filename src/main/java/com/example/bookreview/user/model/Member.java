@@ -3,7 +3,6 @@ package com.example.bookreview.user.model;
 import com.example.bookreview.board.model.Comments;
 import com.example.bookreview.board.model.Post;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
-
-import static org.hibernate.annotations.CascadeType.DELETE_ORPHAN;
 
 
 @Entity

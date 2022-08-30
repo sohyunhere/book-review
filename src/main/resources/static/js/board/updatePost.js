@@ -1,3 +1,13 @@
+const Editor = toastui.Editor;
+
+const editor = new Editor({
+    el: document.querySelector('#editor'),
+    height: '600px',
+    initialEditType: 'wysiwyg',
+    initialValue: $("#content").val(),
+    previewStyle: 'vertical'
+});
+
 function checkAll() {
     if (!checkExistData(editor.getMarkdown(), "내용을")) {
         return false;

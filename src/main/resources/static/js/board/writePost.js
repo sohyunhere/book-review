@@ -1,3 +1,50 @@
+const Editor = toastui.Editor;
+
+const editor = new Editor({
+    el: document.querySelector('#editor'),
+    height: '600px',
+    initialEditType: 'wysiwyg',
+    initialValue: '',
+    previewStyle: 'vertical',
+
+    hooks : {
+        addImageBlobHook : async (blob, callback) => {
+            const upload = await uploadImage(blob);
+            callback(upload, '');
+        }
+    }
+});
+
+function uploadImage(blob) {
+    let header = $("meta[name='_csrf_header']").attr('content');
+    let token = $("meta[name='_csrf']").attr('content');
+
+    let formData = new FormData();
+    let fileUrlData;
+    formData.append('image', blob); // 이미지를 폼데이터 file로 변경 'image'가 input name이다.
+    $.ajax({
+        url : 'image/editorUpload',
+        enctype: 'multipart/form-data',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: false, // 비동기를 동기로 변경.
+        beforeSend: function(xhr){
+            xhr.setRequestHeader(header, token);
+        },
+        success:
+            function (data){
+                fileUrlData = data
+            },
+        error :
+            function (request, status, error){
+                alert("이미지 없로드 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
+            }
+    });
+    return fileUrlData;
+}
+
 function checkAll() {
     if (!checkExistData(writePostForm.postTitle.value, "제목을")) {
         writePostForm.postTitle.focus();
