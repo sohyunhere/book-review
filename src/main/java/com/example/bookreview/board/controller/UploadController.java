@@ -32,21 +32,12 @@ public class UploadController {
 
         //랜덤 문자 생성
         UUID uid = UUID.randomUUID();
-        String toastUploadPath;
-        Path savePath;
-        String fileName;
 
-        try{
-            fileName = upload.getOriginalFilename();//파일 이름 가져오기
-            byte[] bytes = upload.getBytes();
+        String fileName = upload.getOriginalFilename();//파일 이름 가져오기
+        String toastUploadPath = File.separator + "editorUpload" + File.separator + uid + "_" + fileName;
+        Path savePath = Paths.get(uploadPath +toastUploadPath);
+        upload.transferTo(savePath);
 
-            toastUploadPath = File.separator + "editorUpload" + File.separator + uid + "_" + fileName;
-            savePath = Paths.get(uploadPath +toastUploadPath);
-            upload.transferTo(savePath);
-
-        }catch(Exception e){
-            throw e;
-        }
         log.info("savePath : " + savePath);
         log.info("toastUploadPath : "+toastUploadPath);
         return "/editorUpload/" + uid + "_" + fileName;

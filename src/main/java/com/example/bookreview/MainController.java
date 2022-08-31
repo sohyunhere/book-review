@@ -24,13 +24,13 @@ public class MainController {
     public String main(Model model) throws IOException {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
-        List<Post> posts = boardService.findAll();
+        List<Post> posts = boardService.findAllByLatest();
         model.addAttribute("posts", posts);
         return "main";
     }
     //최신순
     @GetMapping("/latest")
-    public String latest(Model model) throws IOException {
+    public String latest(Model model) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         List<Post> posts = boardService.findAllByLatest();
@@ -39,7 +39,7 @@ public class MainController {
     }
     //조회순
     @GetMapping("/popular")
-    public String popular(Model model) throws IOException {
+    public String popular(Model model) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         List<Post> posts = boardService.findAllByView();

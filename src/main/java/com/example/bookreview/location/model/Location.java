@@ -4,13 +4,14 @@ import com.example.bookreview.board.model.Post;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
-public class Location {
+public class Location implements Serializable {
     @Id
     @Column(name="LOCATION_ID")
     @SequenceGenerator(name = "LOCATION_ID_GENERATOR", sequenceName = "LOCATION_SEQ", initialValue = 1, allocationSize = 1)

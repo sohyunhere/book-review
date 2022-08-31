@@ -39,7 +39,7 @@ public class BoardWebController {
 
     //글 보기 + 조회수 1씩 올리기
     @GetMapping("/board/{postId}")
-    public String postView(@PathVariable("postId") Long id, Model model){
+    public String postView(@PathVariable("postId") Long id, Model model) throws Exception {
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());
 
@@ -58,7 +58,7 @@ public class BoardWebController {
 
     //수정 게시글로 이동
     @GetMapping("/board/update/{postId}")
-    public String updatePost(@PathVariable("postId") Long id, Model model){
+    public String updatePost(@PathVariable("postId") Long id, Model model) throws Exception {
         Post post = boardService.findPostBypostId(id);
         model.addAttribute("post", post);
         return "board/u_post";

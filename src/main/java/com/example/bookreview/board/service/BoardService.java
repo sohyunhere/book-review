@@ -25,14 +25,14 @@ public class BoardService {
     private final BoardRepo boardRepo;
     private final BoardQueryRepo boardQueryRepo;
     private final CategoryService categoryService;
-    private final MemberService memberService;
+
     //글 작성 등록
     @Transactional
     public Long registerPost(PostDto dto, Member user){
 
-        Date today = new Date();
+//        Date today = new Date();
         dto.setMember(user);
-        dto.setWrittenDate(today);
+//        dto.setWrittenDate(today);
         dto.setViewCount(1L);
 
         dto.setCategory(categoryService.findCategoryById(dto.getCategoryId()));
@@ -62,7 +62,7 @@ public class BoardService {
     //postId에 해당하는 post객체 가져오기
     @Transactional //JPA를 사용하다가 연관관계 매핑
     // comment list가 @onetomany로 되어있기 때문
-    public Post findPostBypostId(Long id){
+    public Post findPostBypostId(Long id) {
         Optional<Post> result = Optional.ofNullable(boardRepo.findById(id).orElseThrow(() -> new IllegalStateException("post가 존재하지 않습니다.")));
 
         return result.get();
@@ -104,13 +104,13 @@ public class BoardService {
         List<Post> postList;
         //글 제목, 글 내용, 책 제목, 저자
         if(searchType == 1){
-            postList=boardRepo.findByPostTitleContainingOrderByViewCount(word);
+            postList=boardRepo.findByPostTitleContainingOrderByViewCountDesc(word);
         }else if(searchType == 2){
-            postList=boardRepo.findByContentContainingOrderByViewCount(word);
+            postList=boardRepo.findByContentContainingOrderByViewCountDesc(word);
         }else if(searchType == 3){
-            postList=boardRepo.findByBookTitleContainingOrderByViewCount(word);
+            postList=boardRepo.findByBookTitleContainingOrderByViewCountDesc(word);
         }else{
-            postList=boardRepo.findByAuthorContainingOrderByViewCount(word);
+            postList=boardRepo.findByAuthorContainingOrderByViewCountDesc(word);
         }
         return postList;
     }

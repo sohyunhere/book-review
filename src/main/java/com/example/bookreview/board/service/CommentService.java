@@ -24,9 +24,7 @@ public class CommentService {
 
     //댓글 작성
     @Transactional
-    public Long registerComment(CommentsDto dto, Member member){
-        Date today = new Date();
-        dto.setWrittenDate(today);
+    public Long registerComment(CommentsDto dto, Member member) {
         dto.setMember(member);
         dto.setPost(boardService.findPostBypostId(dto.getPostId()));
 

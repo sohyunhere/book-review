@@ -10,11 +10,11 @@ public interface BoardRepo extends JpaRepository<Post, Long> {
     List<Post> findByMemberMemberIdOrderByPostIdDesc(Long memberId);
 
     //글제목으로 검색
-    List<Post> findByPostTitleContainingOrderByViewCount(String postTitle);
+    List<Post> findByPostTitleContainingOrderByViewCountDesc(String postTitle);
     //글내용으로 검색
-    List<Post> findByContentContainingOrderByViewCount(String content);
+    List<Post> findByContentContainingOrderByViewCountDesc(String content);
     //책 제목으로 검색
-    List<Post> findByBookTitleContainingOrderByViewCount(String title);
+    List<Post> findByBookTitleContainingOrderByViewCountDesc(String title);
     //저자로 검색
-    List<Post> findByAuthorContainingOrderByViewCount(String author);
+    List<Post> findByAuthorContainingOrderByViewCountDesc(String author);
 }

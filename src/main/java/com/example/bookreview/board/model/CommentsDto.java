@@ -11,7 +11,7 @@ public class CommentsDto {
     Long commentId;
     Long postId;
     String content;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     Date writtenDate;
 
     Post post;

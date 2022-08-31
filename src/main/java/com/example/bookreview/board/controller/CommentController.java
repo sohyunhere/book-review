@@ -19,24 +19,15 @@ public class CommentController
     @PostMapping("/comment/write")
     public int write(@RequestBody CommentsDto dto, Authentication auth){
         Member member = (Member) auth.getPrincipal();
-        Long commentId;
-        try{
-            commentId = commentService.registerComment(dto, member);
-        }catch (Exception e){
-            throw e;
-        }
+        Long commentId = commentService.registerComment(dto, member);
+
         return Math.toIntExact(commentId);
     }
 
     //댓글 삭제
     @GetMapping("/board/delete/comment/{commentId}")
     public int deleteComment(@PathVariable("commentId") Long id){
-        Long commentId;
-        try {
-            commentId = commentService.deleteComment(id);
-        }catch (Exception e){
-            throw e;
-        }
+        Long commentId = commentService.deleteComment(id);
         return Math.toIntExact(commentId);
     }
 }

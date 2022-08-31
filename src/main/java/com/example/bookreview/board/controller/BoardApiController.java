@@ -26,24 +26,17 @@ public class BoardApiController {
     public int write(@RequestBody PostDto dto, Authentication auth) {
         Member member = (Member) auth.getPrincipal();
 
-        Long postId;
-        try {
-            postId = boardService.registerPost(dto, member);
-        } catch (Exception e) {
-            throw e;
-        }
-        return Math.toIntExact(postId);
+        Long postId = boardService.registerPost(dto, member);
 
+        return Math.toIntExact(postId);
     }
 
     //글 수정
     @PostMapping("/board/update/{postId}")
     public int updatePost(@PathVariable("postId") Long id, @RequestBody PostDto dto){
-        try{
-            boardService.updatePost(id,dto.getContent());
-        } catch (Exception e) {
-            throw e;
-        }
+
+        boardService.updatePost(id,dto.getContent());
+
         return Math.toIntExact(id);
     }
 
@@ -51,12 +44,8 @@ public class BoardApiController {
     //글 삭제
     @PostMapping("/board/delete/post/{postId}")
     public int deletePost(@PathVariable("postId") Long id){
-        Long postId;
-        try {
-            postId = boardService.deletePostById(id);
-        }catch (Exception e){
-            throw e;
-        }
+        Long postId = boardService.deletePostById(id);
+
         return Math.toIntExact(postId);
     }
 }

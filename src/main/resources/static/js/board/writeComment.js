@@ -12,6 +12,7 @@ function writeComment() {
         type : "post",
         data : JSON.stringify({
             postId : postId,
+            writtenDate: moment().format(),
             content : content
         }),
         url : "/comment/write",

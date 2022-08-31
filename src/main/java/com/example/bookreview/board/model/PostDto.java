@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Data
 public class PostDto {
-//    private Long userId;
     private Member member;
     private Category category;
     private Long categoryId;
@@ -19,7 +18,7 @@ public class PostDto {
     private String bookTitle;
     private String content;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date writtenDate;
     private Long viewCount;
 
@@ -33,7 +32,6 @@ public class PostDto {
     public Post toEntity(){
         return Post.builder()
                 .member(member)
-//                .memberId(userId)
                 .postTitle(postTitle)
                 .readBookDate(new java.sql.Date(readDate.getTime()))
                 .bookTitle(bookTitle)
@@ -41,7 +39,6 @@ public class PostDto {
                 .viewCount(viewCount)
                 .author(author)
                 .publisher(publisher)
-//                .categoryId(categoryId)
                 .category(category)
                 .writtenDate(writtenDate)
                 .build();

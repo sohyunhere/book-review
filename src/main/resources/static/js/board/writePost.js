@@ -46,6 +46,7 @@ function uploadImage(blob) {
 }
 
 function checkAll() {
+
     if (!checkExistData(writePostForm.postTitle.value, "제목을")) {
         writePostForm.postTitle.focus();
         return false;
@@ -78,7 +79,8 @@ function checkAll() {
     if(!checkExistData(editor.getMarkdown(), "내용울")){
         return false;
     }
-    alert(editor.getHTML());
+
+    // alert(editor.getHTML());
     if(confirm("게시글을 등록하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -93,7 +95,7 @@ function checkAll() {
                 author : $("#author").val().trim(),
                 publisher : $("#publisher").val().trim(),
                 categoryId : $("#categoryId").val(),
-                // content : $("#content").val(),
+                writtenDate : moment().format(),
                 content : content,
                 formFile : $("#formFile").val()
             }),
@@ -115,20 +117,15 @@ function checkAll() {
     }
     return true;
 }
+
 function checkReadDate(value){
     if (!checkExistData(value, "읽은 날짜")) {
         return false;
     }
 
     if(value){
-        let today = new Date();
-
-        let year = today.getFullYear();
-        let month = ('0' + (today.getMonth() + 1)).slice(-2);
-        let day = ('0' + today.getDate()).slice(-2);
-        let dateString = year + '-' + month  + '-' + day;
-
-        if(value > dateString){
+        let today = moment().format();
+        if(value > today){
             alert("책을 읽은 날짜는 오늘 날짜까지 선택 가능합니다.")
             return false;
         }

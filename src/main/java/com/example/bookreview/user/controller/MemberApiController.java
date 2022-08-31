@@ -19,11 +19,7 @@ public class MemberApiController {
     @PostMapping("/member/register")
     public int register(@RequestBody SignupDto dto) throws Exception {
 
-        try {
-            memberService.join(dto);
-        } catch (Exception e) {
-            throw e;
-        }
+        memberService.join(dto);
         return 1;
     }
 
@@ -43,14 +39,9 @@ public class MemberApiController {
     public String changeNickname(@RequestParam("nickname") String nickname,  Authentication auth) {
         Member user = (Member) auth.getPrincipal();
 
-        try{
-            Member changedUser = memberService.updateNickname(user.getMemberId(), nickname);
-            //세션 수정
-            memberService.changeSession(changedUser);
-        }catch(Exception e){
-            //에러 발생
-            throw e;
-        }
+        Member changedUser = memberService.updateNickname(user.getMemberId(), nickname);
+        //세션 수정
+        memberService.changeSession(changedUser);
         return nickname;
     }
 

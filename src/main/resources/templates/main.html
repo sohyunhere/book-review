@@ -50,10 +50,8 @@
         <a class="btn btn-dark" th:href="@{/board/write}">글쓰기</a>
       </div>
     </div>
-
-  <div th:replace="layout/PostFragment :: postList"></div>
   </main>
-
+  <div th:replace="layout/PostFragment :: postList"></div>
 <div th:replace="layout/fragments :: footer"></div>
 </body>
 <script src="/js/board/search.js"> </script>

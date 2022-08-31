@@ -4,15 +4,12 @@ import com.example.bookreview.file.model.AttachedFile;
 import com.example.bookreview.location.model.Location;
 import com.example.bookreview.user.model.Member;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import static org.hibernate.annotations.CascadeType.DELETE_ORPHAN;
 
 @Entity
 @Getter
@@ -62,8 +59,7 @@ public class Post  implements Serializable {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @Cascade(DELETE_ORPHAN)
-    @OneToMany(mappedBy = "post",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post",fetch = FetchType.EAGER, orphanRemoval = true)
     @OrderBy("commentId ASC")
     private List<Comments> comments;
 

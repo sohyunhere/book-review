@@ -1,6 +1,4 @@
 package com.example.bookreview.board.model;
-
-import com.example.bookreview.board.model.Post;
 import com.example.bookreview.user.model.Member;
 import lombok.*;
 
