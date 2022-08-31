@@ -6,11 +6,16 @@ import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -29,21 +34,25 @@ public class MainController {
         return "main";
     }
     //최신순
+    @ResponseBody
     @GetMapping("/latest")
-    public String latest(Model model) {
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
-        List<Post> posts = boardService.findAllByLatest();
-        model.addAttribute("posts", posts);
-        return "main";
+    public ResponseEntity<Map<String, Object>> latest() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("categories", categoryService.findAll());
+        map.put("posts", boardService.findAllByLatest());
+
+        return ResponseEntity.ok(map);
     }
     //조회순
+    @ResponseBody
     @GetMapping("/popular")
-    public String popular(Model model) {
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
-        List<Post> posts = boardService.findAllByView();
-        model.addAttribute("posts", posts);
-        return "main";
+    public ResponseEntity<Map<String, Object>> popular() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("categories", categoryService.findAll());
+        map.put("posts", boardService.findAllByView());
+
+        return ResponseEntity.ok(map);
     }
 }

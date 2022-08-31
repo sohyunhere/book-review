@@ -42,8 +42,8 @@
 
     <div class="row flex-nowrap align-items-center"style="margin-bottom: 1rem;">
       <div class="pt-1 col-4">
-        <a class="btn btn-outline-primary rounded-pill" th:href="@{/latest}">최신순</a>
-        <a class="btn btn-outline-secondary rounded-pill" th:href="@{/popular}">조회순</a>
+        <button class="btn btn-outline-primary rounded-pill" type="button" th:id="latest" onclick="sortByLatest()">최신순</button>
+        <button class="btn btn-outline-secondary rounded-pill" type="button" th:id="view" onclick="sortByView()">조회순</button>
       </div>
       <div class="col-4"></div>
       <div class="col-4 text-end d-flex justify-content-end align-items-center">
@@ -55,4 +55,5 @@
 <div th:replace="layout/fragments :: footer"></div>
 </body>
 <script src="/js/board/search.js"> </script>
+<script src="/js/board/sortby.js"></script>
 </html>

@@ -2,6 +2,7 @@ package com.example.bookreview.user.model;
 
 import com.example.bookreview.board.model.Comments;
 import com.example.bookreview.board.model.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,10 +37,7 @@ public class Member implements UserDetails, Serializable{
 
     private String role;
 
-    @OneToMany(mappedBy = "member")
-    @OrderBy("postId asc ")
-    private List<Post> posts;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "member",fetch=FetchType.EAGER)
     @OrderBy("commentId desc ")
     private List<Comments> comments;

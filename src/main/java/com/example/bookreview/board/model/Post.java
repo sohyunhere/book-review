@@ -3,6 +3,7 @@ package com.example.bookreview.board.model;
 import com.example.bookreview.file.model.AttachedFile;
 import com.example.bookreview.location.model.Location;
 import com.example.bookreview.user.model.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -52,6 +53,7 @@ public class Post  implements Serializable {
     @PrimaryKeyJoinColumn(name="LOCATION_ID")
     private Location location;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "post")
     private List<AttachedFile> attachedFileList;
 
@@ -61,6 +63,7 @@ public class Post  implements Serializable {
 
     @OneToMany(mappedBy = "post",fetch = FetchType.EAGER, orphanRemoval = true)
     @OrderBy("commentId ASC")
+    @JsonIgnore
     private List<Comments> comments;
 
     public Post() {

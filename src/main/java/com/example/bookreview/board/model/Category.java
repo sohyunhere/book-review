@@ -1,4 +1,5 @@
 package com.example.bookreview.board.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +18,8 @@ public class Category  implements Serializable {
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Post> postList;
 
     public Category() {

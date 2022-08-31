@@ -52,6 +52,12 @@ dependencies {
 	//file upload
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 
+	//fetch시 값이 없으면 null 저장
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.13.3'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
