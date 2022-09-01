@@ -29,17 +29,24 @@ public class MainController {
     public String main(Model model) throws IOException {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
-        List<Post> posts = boardService.findAllByLatest();
-        model.addAttribute("posts", posts);
+
         return "main";
+    }
+
+    //메인 게시글
+    @ResponseBody
+    @GetMapping("/main/posts")
+    public ResponseEntity<Map<String, Object>> posts() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("posts", boardService.findAllByLatest());
+
+        return ResponseEntity.ok(map);
     }
     //최신순
     @ResponseBody
     @GetMapping("/latest")
     public ResponseEntity<Map<String, Object>> latest() {
         Map<String, Object> map = new HashMap<>();
-
-        map.put("categories", categoryService.findAll());
         map.put("posts", boardService.findAllByLatest());
 
         return ResponseEntity.ok(map);
@@ -49,8 +56,6 @@ public class MainController {
     @GetMapping("/popular")
     public ResponseEntity<Map<String, Object>> popular() {
         Map<String, Object> map = new HashMap<>();
-
-        map.put("categories", categoryService.findAll());
         map.put("posts", boardService.findAllByView());
 
         return ResponseEntity.ok(map);

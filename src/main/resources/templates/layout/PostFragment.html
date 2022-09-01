@@ -8,76 +8,53 @@
 <body>
     <div class = "container" th:fragment="postList">
 
-        <table class="table table-hover table-striped text-center" style="border: 1px solid;">
-            <thead>
-            <tr>
-                <th>No</th>
-                <th>제목</th>
-                <th>글쓴이</th>
-                <th>등록일</th>
-                <th>조회수</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="post : ${posts}">
-                <td><span th:text="${post.postId}">1</span></td>
-                <td><a th:href="@{/board/{postId}(postId= ${post.postId})}"><span th:text="${post.postTitle}"></span></a></td>
-                <td><span th:text="${post.getMember().memberNickname}">박소현</span></td>
-                <td><span th:text="${#dates.format(post.writtenDate, 'yyyy-MM-dd HH:mm:ss')}">2022.07.11</span></td>
-                <td><span th:text="${post.viewCount}">9</span></td>
-            </tr>
-            </tbody>
-        </table>
         <div id="grid"></div>
-        <div th:each="post, i : ${posts}">
-            <input type="hidden" th:id="'postNo'+${i.index}" th:value="${post.postId}">
-            <input type="hidden" th:id="'postTitle'+${i.index}" th:value="${post.postTitle}">
-            <input type="hidden" th:id="'postName'+${i.index}" th:value="${post.getMember().memberNickname}">
-            <input type="hidden" th:id="'postDate'+${i.index}" th:value="${#dates.format(post.writtenDate, 'yyyy-MM-dd HH:mm:ss')}">
-            <input type="hidden" th:id="'postView'+${i.index}" th:value="${post.viewCount}">
-        </div>
-        <input type="hidden" th:id="postSize" th:value="${posts.size}">
         <script>
-                    // GRID 를 생성한다.
-                    tui.Grid.applyTheme('striped');
-                    let grid = new tui.Grid( {
-                        el: document.getElementById('grid'),
 
-                        columns: [
-                            {
-                                header: 'No',
-                                name: 'no'
-                            },
-                            {
-                                header: '제목',
-                                name: 'title'
-                            },
-                            {
-                                header: '글쓴이',
-                                name: 'name'
-                            },
-                            {
-                                header: '등록일',
-                                name: 'date'
-                            },
-                            {
-                                header: '조회수',
-                                name: 'view'
-                            }
-                        ]
-                    } );// GRID 에 데이터를 입력한다.
-                    // let arrData = [];
-                    // let postSize = $("#postSize").val();
-                    // for(let i = 0; i < postSize; i++){
-                    //     let postV = {}
-                    //     postV.no = $("#postNo"+i).val();
-                    //     postV.title = $("#postTitle"+i).val();
-                    //     postV.name = $("#postName"+i).val();
-                    //     postV.date = $("#postDate"+i).val();
-                    //     postV.view = $("#postView"+i).val();
-                    //     arrData.push(postV);
-                    // }
-                    // grid.resetData( arrData );
+                // GRID 를 생성한다.
+                tui.Grid.applyTheme('striped',{
+                    cell: {
+                        header : {
+                            background: "#eaeaea",
+                            border: "#e0e0e0",
+                            showHorizontalBorder: true,
+                        },
+                        rowHeader : {
+                            background: "#eaeaea",
+                            border: "#e0e0e0",
+                            showHorizontalBorder: true,
+                        }
+                    }
+                });
+                let grid = new tui.Grid( {
+                    el: document.getElementById('grid'),
+                    scrollX : false,
+                    scrollY : false,
+                    rowHeaders: ["rowNum"],
+                    columns: [
+                        {
+                            header: '게시글번호',
+                            name: 'no'
+                        },
+                        {
+                            header: '제목',
+                            name: 'title'
+                        },
+                        {
+                            header: '글쓴이',
+                            name: 'name'
+                        },
+                        {
+                            header: '등록일',
+                            name: 'date'
+                        },
+                        {
+                            header: '조회수',
+                            name: 'view'
+                        }
+                    ]
+                } );
+
         </script>
     </div>
 </body>

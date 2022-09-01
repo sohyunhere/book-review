@@ -34,7 +34,7 @@ function setGridData(list){
         postV.view = list[i].viewCount;
         arrData.push(postV);
     }
-    grid.resetData( arrData );
+    grid.resetData(arrData);
 }
 function sortByView(){
     // ajax 통신
@@ -60,4 +60,11 @@ function sortByView(){
             }
     });
 }
+grid.on('click', ev => {
+    let rowNum = ev.rowKey;
+    let row = ev.instance.getRow(rowNum);
+    console.log('check!', ev);
+    console.log('ddd', row.no);
+    location.href = '/board/'+row.no;
+});
 

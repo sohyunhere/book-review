@@ -10,6 +10,7 @@ import com.example.bookreview.board.service.CommentService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
@@ -17,8 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -65,15 +69,15 @@ public class BoardWebController {
     }
 
     //글 검색
+    @ResponseBody
     @GetMapping("/board/search")
-    public String search(@RequestParam(value="searchType") String type, @RequestParam(value="search") String word, Model model){
+    public  ResponseEntity<Map<String, Object>> search(
+            @RequestParam(value="searchType") String type,@RequestParam(value="search") String word){
+        log.info("dddd");
+        Map<String, Object> map = new HashMap<>();
+        map.put("posts", boardService.searchList(word, Integer.parseInt(type)));
 
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
-        List<Post> posts = boardService.searchList(word, Integer.parseInt(type));
-        model.addAttribute("posts", posts);
-
-        return "main";
+        return ResponseEntity.ok(map);
     }
 
     //내가 작성한 댓글
