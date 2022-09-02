@@ -2,12 +2,12 @@ $(document).ready(function() {
     // ajax 통신
     let header = $("meta[name='_csrf_header']").attr('content');
     let token = $("meta[name='_csrf']").attr('content');
-
+    let categoryId = $("#categoryId").val();
     $.ajax({
-        // async: true,
-        type : "get",
-        // contentType: "application/json",
-        url : "/main/posts",
+        async: true,
+        type : "post",
+        contentType: "application/json",
+        url : "/category/post/"+categoryId,
         beforeSend: function(xhr){
             xhr.setRequestHeader(header, token);
         },

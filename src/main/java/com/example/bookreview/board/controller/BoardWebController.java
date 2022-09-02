@@ -15,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,13 +48,24 @@ public class BoardWebController {
         return "board/v_post";
     }
 
-    //내가 작성한 글게시글
+    //내가 작성한 글게시글 화면이동
     @GetMapping("/board/mypost")
-    public String getMyPost(Authentication auth, Model model){
-        Member member = (Member)auth.getPrincipal();
-        List<Post> posts = boardService.findPostListByUser(member.getMemberId());
-        model.addAttribute("posts", posts);
+    public String goMyPost(){
+//        Member member = (Member)auth.getPrincipal();
+//        List<Post> posts = boardService.findPostListByUser(member.getMemberId());
+//        model.addAttribute("posts", posts);
         return "member/myPost";
+    }
+    //내가 작성한 게시글 가져오기
+    @ResponseBody
+    @GetMapping ("/board/mypost/list")
+    public ResponseEntity<Map<String, Object>> getMyPost(Authentication auth) {
+
+        Member member = (Member)auth.getPrincipal();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("posts", boardService.findPostListByUser(member.getMemberId()));
+        return ResponseEntity.ok(map);
     }
 
     //수정 게시글로 이동

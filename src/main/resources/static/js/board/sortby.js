@@ -22,20 +22,6 @@ function sortByLatest(){
             }
     });
 }
-function setGridData(list){
-    // GRID 에 데이터를 입력한다.
-    let arrData = [];
-    for(let i = 0; i < list.length; i++) {
-        let postV = {}
-        postV.no = list[i].postId;
-        postV.title = list[i].postTitle;
-        postV.name = list[i].member.memberNickname;
-        postV.date = list[i].writtenDate;
-        postV.view = list[i].viewCount;
-        arrData.push(postV);
-    }
-    grid.resetData(arrData);
-}
 function sortByView(){
     // ajax 통신
     let header = $("meta[name='_csrf_header']").attr('content');
@@ -60,11 +46,4 @@ function sortByView(){
             }
     });
 }
-grid.on('click', ev => {
-    let rowNum = ev.rowKey;
-    let row = ev.instance.getRow(rowNum);
-    console.log('check!', ev);
-    console.log('ddd', row.no);
-    location.href = '/board/'+row.no;
-});
 
