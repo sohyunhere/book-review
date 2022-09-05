@@ -30,6 +30,10 @@
                     scrollX : false,
                     scrollY : false,
                     rowHeaders: ["rowNum"],
+                    pageOptions : {
+                        perPage: 10,
+                        useClient: true
+                    },
                     columns: [
                         {
                             header: '게시글번호',
@@ -68,6 +72,7 @@
                     }
                     grid.resetData(arrData);
                 }
+                grid.hideColumn('no');
                 grid.on('click', ev => {
                     let rowNum = ev.rowKey;
                     let row = ev.instance.getRow(rowNum);
@@ -75,6 +80,10 @@
                     console.log('ddd', row.no);
                     location.href = '/board/'+row.no;
                 });
+
+                function setPerPage(count){
+                    grid.setPerPage(count);
+                }
         </script>
     </div>
 </body>

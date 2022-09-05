@@ -5,15 +5,14 @@ function checkSearch(){
     }
     let header = $("meta[name='_csrf_header']").attr('content');
     let token = $("meta[name='_csrf']").attr('content');
-    console.log("durldurl")
     $.ajax({
         async: true,
         type : "get",
         contentType: "application/json",
         url : "/board/search",
         data : {
-            "searchType" : $("#searchType"),
-            "search" : $("#search")
+            "searchType" : $("#searchType").val(),
+            "search" : word
         },
         beforeSend: function(xhr){
             xhr.setRequestHeader(header, token);

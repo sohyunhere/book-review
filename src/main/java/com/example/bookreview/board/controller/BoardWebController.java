@@ -81,7 +81,7 @@ public class BoardWebController {
     @GetMapping("/board/search")
     public  ResponseEntity<Map<String, Object>> search(
             @RequestParam(value="searchType") String type,@RequestParam(value="search") String word){
-        log.info("dddd");
+
         Map<String, Object> map = new HashMap<>();
         map.put("posts", boardService.searchList(word, Integer.parseInt(type)));
 
