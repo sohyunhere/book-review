@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 public class AttachedFile implements Serializable {

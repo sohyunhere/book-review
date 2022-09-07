@@ -4,6 +4,9 @@ import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.repo.BoardQueryRepo;
 import com.example.bookreview.board.repo.BoardRepo;
+import com.example.bookreview.location.model.Location;
+import com.example.bookreview.location.model.LocationDto;
+import com.example.bookreview.location.service.LocationService;
 import com.example.bookreview.user.model.Member;
 import com.example.bookreview.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -25,16 +29,26 @@ public class BoardService {
     private final BoardRepo boardRepo;
     private final BoardQueryRepo boardQueryRepo;
     private final CategoryService categoryService;
+    private final LocationService locationService;
+
 
     //글 작성 등록
     @Transactional
     public Long registerPost(PostDto dto, Member user){
+        LocationDto locationDto = new LocationDto();
+        System.out.println(dto.getLan()+"klklkj");
+        System.out.println(dto.getLng()+"poipoip");
+        System.out.println(new BigDecimal(dto.getLan()));
+        System.out.println("wewewes");
+//        locationDto.setLat(dto.getLan());
+//        locationDto.setLng(dto.getLng());
+        Location location = locationService.registerLocation(locationDto);
 
+        dto.setLocation(location);
 //        Date today = new Date();
         dto.setMember(user);
 //        dto.setWrittenDate(today);
         dto.setViewCount(1L);
-
         dto.setCategory(categoryService.findCategoryById(dto.getCategoryId()));
         Post post = dto.toEntity();
         Post savedPost = boardRepo.save(post);

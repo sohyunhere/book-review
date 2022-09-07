@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -18,7 +20,10 @@ public class BoardApiController {
     @PostMapping("/board/write")
     public int write(@RequestBody PostDto dto, Authentication auth) {
         Member member = (Member) auth.getPrincipal();
-
+        System.out.println(dto.getLan()+"klklkj");
+        System.out.println(dto.getLng()+"poipoip");
+        System.out.println(new BigDecimal(dto.getLan()));
+        System.out.println("dsdsds");
         Long postId = boardService.registerPost(dto, member);
 
         return Math.toIntExact(postId);

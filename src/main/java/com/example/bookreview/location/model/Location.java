@@ -17,7 +17,10 @@ public class Location implements Serializable {
     @SequenceGenerator(name = "LOCATION_ID_GENERATOR", sequenceName = "LOCATION_SEQ", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOCATION_ID_GENERATOR")
     private Long locationId;
+
+    @Column(name="LAT")
     private BigDecimal lat;
+    @Column(name="LNG")
     private BigDecimal lng;
 
     @OneToOne(mappedBy = "location", optional = false)

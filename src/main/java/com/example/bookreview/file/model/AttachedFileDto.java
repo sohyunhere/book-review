@@ -12,4 +12,6 @@ public class AttachedFileDto {
     private String fType;//타입
     private String name;//이름?
     private Date writtenDate;//등록일
+
+    private String files[]; //파일명
 }

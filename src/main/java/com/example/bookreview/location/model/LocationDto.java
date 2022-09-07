@@ -7,8 +7,15 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 public class LocationDto {
-    Long locationId;
+//    Long locationId;
     BigDecimal lat;
     BigDecimal lng;
+
+    public Location toEntity(){
+        return Location.builder()
+                .lat(lat)
+                .lng(lng)
+                .build();
+    }
 
 }

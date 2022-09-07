@@ -44,6 +44,19 @@ function uploadImage(blob) {
     });
     return fileUrlData;
 }
+function locat() {
+    let lan = "";
+    let lng = "";
+    if (navigator.geolocation) {
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(function (position) {
+            lan = position.coords.latitude; // 위도
+            lng = position.coords.longitude; // 경도
+            alert(lan+" "+lng);
+            return lan+" "+lng;
+        });
+    }
+}
 
 function checkAll() {
 
@@ -85,6 +98,28 @@ function checkAll() {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let content = editor.getHTML();
+        let formData = new FormData();
+        let fileUpload = $("#formFile");
+        let files = fileUpload[0].files;
+
+        $(files).each(function (i, file) { // 여러 개의 파일을 업로드할 때 formData에 저장
+            formData.append("uploadfile", file);
+
+        });
+        console.log(formData);
+        // alert(formData);
+
+        let lanLng = locat();
+        alert(lanLng);
+
+        // setTimeout(function() {
+                alert("sertqweqw");
+                alert(lanLng);
+                let [lan, lng] = lanLng.split(" ");
+                alert(lan+"dddd"+lng);
+        // }, 2000);
+
+
         $.ajax({
             async: true,
             type : "post",
@@ -97,10 +132,14 @@ function checkAll() {
                 categoryId : $("#categoryId").val(),
                 writtenDate : moment().format(),
                 content : content,
-                formFile : $("#formFile").val()
+                formFile : $("#formFile").val(),
+                lan : lan,
+                lng : lng
             }),
             url : "/board/write",
+            // processData: false,
             contentType : "application/json; charset=UTF-8",
+            // contentType : false,
             beforeSend: function(xhr){
                 xhr.setRequestHeader(header, token);
             },
@@ -117,7 +156,6 @@ function checkAll() {
     }
     return true;
 }
-
 function checkReadDate(value){
     if (!checkExistData(value, "읽은 날짜")) {
         return false;

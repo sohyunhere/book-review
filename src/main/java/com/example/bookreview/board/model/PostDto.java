@@ -1,9 +1,11 @@
 package com.example.bookreview.board.model;
 
+import com.example.bookreview.location.model.Location;
 import com.example.bookreview.user.model.Member;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -28,7 +30,11 @@ public class PostDto {
 
     //빼기
     private String formFile;
-    private Long locationId;
+
+    private Location location;
+//    private Long locationId;
+    private double lan;
+    private double lng;
     public Post toEntity(){
         return Post.builder()
                 .member(member)
@@ -41,6 +47,7 @@ public class PostDto {
                 .publisher(publisher)
                 .category(category)
                 .writtenDate(writtenDate)
+                .location(location)
                 .build();
     }
 
