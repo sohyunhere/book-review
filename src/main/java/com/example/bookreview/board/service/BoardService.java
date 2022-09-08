@@ -8,7 +8,6 @@ import com.example.bookreview.location.model.Location;
 import com.example.bookreview.location.model.LocationDto;
 import com.example.bookreview.location.service.LocationService;
 import com.example.bookreview.user.model.Member;
-import com.example.bookreview.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,23 +34,23 @@ public class BoardService {
     @Transactional
     public Long registerPost(PostDto dto, Member user){
         LocationDto locationDto = new LocationDto();
-        System.out.println(dto.getLan()+"klklkj");
-        System.out.println(dto.getLng()+"poipoip");
-        System.out.println(new BigDecimal(dto.getLan()));
-        System.out.println("wewewes");
-//        locationDto.setLat(dto.getLan());
-//        locationDto.setLng(dto.getLng());
+        locationDto.setLat(new BigDecimal(dto.getLat()));
+        locationDto.setLng(new BigDecimal(dto.getLng()));
+
         Location location = locationService.registerLocation(locationDto);
 
         dto.setLocation(location);
+        dto.setLocationId(location.getLocationId());
 //        Date today = new Date();
         dto.setMember(user);
 //        dto.setWrittenDate(today);
         dto.setViewCount(1L);
         dto.setCategory(categoryService.findCategoryById(dto.getCategoryId()));
         Post post = dto.toEntity();
+
         Post savedPost = boardRepo.save(post);
 
+        log.info(savedPost.getLocation().toString());
         return savedPost.getPostId();
     }
     //글 목록 다 가져가기

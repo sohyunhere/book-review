@@ -32,8 +32,8 @@ public class PostDto {
     private String formFile;
 
     private Location location;
-//    private Long locationId;
-    private double lan;
+    private Long locationId;
+    private double lat;
     private double lng;
     public Post toEntity(){
         return Post.builder()

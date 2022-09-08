@@ -42,6 +42,7 @@ public class BoardWebController {
     @GetMapping("/board/{postId}")
     public String postView(@PathVariable("postId") Long id, Model model) throws Exception {
         Post post = boardService.findPostBypostId(id);
+//        log.info(String.valueOf(post.getLocation().getLocationId()));
         boardService.updateVisit(id, post.getViewCount());
 
         model.addAttribute("post", post);

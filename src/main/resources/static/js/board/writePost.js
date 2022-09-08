@@ -1,3 +1,17 @@
+let lan = "";
+let lng = "";
+$(document).ready(function() {
+
+    if (navigator.geolocation) {
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(function (position) {
+            lan = position.coords.latitude; // 위도
+            lng = position.coords.longitude; // 경도
+
+        });
+    }
+});
+
 const Editor = toastui.Editor;
 
 const editor = new Editor({
@@ -44,19 +58,6 @@ function uploadImage(blob) {
     });
     return fileUrlData;
 }
-function locat() {
-    let lan = "";
-    let lng = "";
-    if (navigator.geolocation) {
-        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-        navigator.geolocation.getCurrentPosition(function (position) {
-            lan = position.coords.latitude; // 위도
-            lng = position.coords.longitude; // 경도
-            alert(lan+" "+lng);
-            return lan+" "+lng;
-        });
-    }
-}
 
 function checkAll() {
 
@@ -85,15 +86,10 @@ function checkAll() {
         writePostForm.category.focus();
         return false;
     }
-    // if (!checkExistData(writePostForm.content.value, "내용을")) {
-    //     writePostForm.content.focus();
-    //     return false;
-    // }
     if(!checkExistData(editor.getMarkdown(), "내용울")){
         return false;
     }
 
-    // alert(editor.getHTML());
     if(confirm("게시글을 등록하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -107,34 +103,22 @@ function checkAll() {
 
         });
         console.log(formData);
-        // alert(formData);
-
-        let lanLng = locat();
-        alert(lanLng);
-
-        // setTimeout(function() {
-                alert("sertqweqw");
-                alert(lanLng);
-                let [lan, lng] = lanLng.split(" ");
-                alert(lan+"dddd"+lng);
-        // }, 2000);
-
 
         $.ajax({
             async: true,
             type : "post",
             data : JSON.stringify({
-                postTitle : $("#postTitle").val().trim(),
-                readDate : $("#readDate").val(),
-                bookTitle : $("#bookTitle").val().trim(),
-                author : $("#author").val().trim(),
-                publisher : $("#publisher").val().trim(),
-                categoryId : $("#categoryId").val(),
-                writtenDate : moment().format(),
-                content : content,
-                formFile : $("#formFile").val(),
-                lan : lan,
-                lng : lng
+            postTitle : $("#postTitle").val().trim(),
+            readDate : $("#readDate").val(),
+            bookTitle : $("#bookTitle").val().trim(),
+            author : $("#author").val().trim(),
+            publisher : $("#publisher").val().trim(),
+            categoryId : $("#categoryId").val(),
+            writtenDate : moment().format(),
+            content : content,
+            formFile : $("#formFile").val(),
+            lat : lan,
+            lng : lng
             }),
             url : "/board/write",
             // processData: false,
@@ -152,7 +136,7 @@ function checkAll() {
                 function (request, status, error){
                     alert("게시글 등록 실패"+ "code:"+request.status+"\n"+" message : " + request.responseText +"\n"+"error:"+error);
                 }
-        });
+          });
     }
     return true;
 }
