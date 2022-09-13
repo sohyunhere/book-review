@@ -50,7 +50,7 @@ public class Post  implements Serializable {
     private String publisher;
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name="LOCATION_ID")
+    @JoinColumn(name="LOCATION_ID")
     private Location location;
 
     @JsonIgnore

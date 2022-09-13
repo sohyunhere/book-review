@@ -52,16 +52,31 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div id="map" style="width:300px;height:300px;"></div>
+                        <div id="map" style="width:570px;height:600px;"></div>
+                        <input type="hidden" th:id="lat" th:value="${post.location.getLat()}">
+                        <input type="hidden" th:id="lng" th:value="${post.location.getLng()}">
                         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70ee54b3d25775e7b45670791750227b"></script>
                         <script>
                             let container = document.getElementById('map');
+                            let lat = $("#lat").val();
+                            let lng = $("#lng").val();
+
                             let options = {
-                              center: new kakao.maps.LatLng(33.450701, 126.570667),
+                              center: new kakao.maps.LatLng(lat, lng),
                               level: 3
                             };
 
                             let map = new kakao.maps.Map(container, options);
+                            let markerPosition  = new kakao.maps.LatLng(lat, lng);
+
+                            // 마커를 생성합니다
+                            let marker = new kakao.maps.Marker({
+                                position: markerPosition
+                            });
+
+                            // 마커가 지도 위에 표시되도록 설정합니다
+                            marker.setMap(map);
+
                         </script>
                     </div>
                 </div>

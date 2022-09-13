@@ -42,7 +42,6 @@ public class BoardWebController {
     @GetMapping("/board/{postId}")
     public String postView(@PathVariable("postId") Long id, Model model) throws Exception {
         Post post = boardService.findPostBypostId(id);
-//        log.info(String.valueOf(post.getLocation().getLocationId()));
         boardService.updateVisit(id, post.getViewCount());
 
         model.addAttribute("post", post);
@@ -97,5 +96,14 @@ public class BoardWebController {
         log.info("comments: "+ comments);
         model.addAttribute("comments", comments);
         return "member/myComment";
+    }
+
+    //나의 업로드 위치
+    @GetMapping("/board/myUploadLocation")
+    public String getMyUploadLocation(Authentication auth, Model model){
+        Member member = (Member) auth.getPrincipal();
+        List<Post> posts = boardService.findPostListByUser(member.getMemberId());
+        model.addAttribute("posts", posts);
+        return "member/uploadLocation";
     }
 }

@@ -50,7 +50,6 @@ public class BoardService {
 
         Post savedPost = boardRepo.save(post);
 
-        log.info(savedPost.getLocation().toString());
         return savedPost.getPostId();
     }
     //글 목록 다 가져가기
