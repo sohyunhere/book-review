@@ -49,7 +49,7 @@ public class Post  implements Serializable {
     private String author;
     private String publisher;
 
-    @OneToOne
+    @OneToOne(orphanRemoval=true)
     @JoinColumn(name="LOCATION_ID")
     private Location location;
 
