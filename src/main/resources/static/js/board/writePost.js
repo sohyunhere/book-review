@@ -23,7 +23,7 @@ const editor = new Editor({
 
     hooks : {
         addImageBlobHook : async (blob, callback) => {
-            const upload = await uploadImage(blob);
+            let upload = await uploadImage(blob);
             callback(upload, '');
         }
     }

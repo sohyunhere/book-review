@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.File;
+
 @RestController
 public class ImageController implements WebMvcConfigurer {
     @Value("${com.example.upload.path}") // application.properties의 변수
@@ -12,6 +14,7 @@ public class ImageController implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // TODO Auto-generated method stub
+        uploadPath += File.separator + "editorUpload";
         registry
                 // 이미지 파일의 요청 경로를 지정한다.
                 .addResourceHandler("/images/**")

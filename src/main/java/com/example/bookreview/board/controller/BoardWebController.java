@@ -51,9 +51,6 @@ public class BoardWebController {
     //내가 작성한 글게시글 화면이동
     @GetMapping("/board/mypost")
     public String goMyPost(){
-//        Member member = (Member)auth.getPrincipal();
-//        List<Post> posts = boardService.findPostListByUser(member.getMemberId());
-//        model.addAttribute("posts", posts);
         return "member/myPost";
     }
     //내가 작성한 게시글 가져오기

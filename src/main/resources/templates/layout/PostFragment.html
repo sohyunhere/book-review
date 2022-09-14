@@ -66,7 +66,8 @@
                         postV.no = list[i].postId;
                         postV.title = list[i].postTitle;
                         postV.name = list[i].member.memberNickname;
-                        postV.date = list[i].writtenDate;
+                        postV.date = formatDate(list[i].writtenDate);
+
                         postV.view = list[i].viewCount;
                         arrData.push(postV);
                     }
@@ -77,12 +78,20 @@
                     let rowNum = ev.rowKey;
                     let row = ev.instance.getRow(rowNum);
                     console.log('check!', ev);
-                    console.log('ddd', row.no);
                     location.href = '/board/'+row.no;
                 });
 
                 function setPerPage(count){
                     grid.setPerPage(count);
+                }
+                function formatDate(date){
+                    let formated= "";
+                    let split = date.split('T');
+                    formated += split[0] + " ";
+                    let time = split[1].split('.');
+                    formated += time[0];
+
+                    return formated;
                 }
         </script>
     </div>
