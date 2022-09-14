@@ -10,10 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -27,19 +23,16 @@ public class UploadController {
     //위지윅 에디터 이미지 업로드
     @PostMapping("/board/image/editorUpload")
     public String uploadImage(@RequestParam("image") MultipartFile upload) throws IOException {
-        log.info("post toast ui img upload");
-        log.info("업로드 url "+uploadPath);
-
         //랜덤 문자 생성
         UUID uid = UUID.randomUUID();
 
         String fileName = upload.getOriginalFilename();//파일 이름 가져오기
-        String toastUploadPath = File.separator + "editorUpload" + File.separator + uid + "_" + fileName;
-        Path savePath = Paths.get(uploadPath +toastUploadPath);
-        upload.transferTo(savePath);
+        String toastUploadPath = uid + "_" + fileName;
 
-        log.info("savePath : " + savePath);
+        File file = new File(uploadPath, toastUploadPath);
+        upload.transferTo(file);
+
         log.info("toastUploadPath : "+toastUploadPath);
-        return "/editorUpload/" + uid + "_" + fileName;
+        return toastUploadPath;
     }
 }

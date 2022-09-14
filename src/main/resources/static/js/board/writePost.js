@@ -36,6 +36,7 @@ function uploadImage(blob) {
     let formData = new FormData();
     let fileUrlData;
     formData.append('image', blob); // 이미지를 폼데이터 file로 변경 'image'가 input name이다.
+    let url = '/images/';
     $.ajax({
         url : 'image/editorUpload',
         enctype: 'multipart/form-data',
@@ -44,12 +45,15 @@ function uploadImage(blob) {
         processData: false,
         contentType: false,
         async: false, // 비동기를 동기로 변경.
+        cache: false,
+        timeout: 600000,
         beforeSend: function(xhr){
             xhr.setRequestHeader(header, token);
         },
         success:
             function (data){
-                fileUrlData = data
+                url += data;
+                fileUrlData = url;
             },
         error :
             function (request, status, error){

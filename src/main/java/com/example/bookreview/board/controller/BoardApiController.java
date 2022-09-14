@@ -5,8 +5,12 @@ import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,4 +44,27 @@ public class BoardApiController {
 
         return Math.toIntExact(postId);
     }
+
+    //내가 작성한 게시글 가져오기
+    @GetMapping ("/board/mypost/list")
+    public ResponseEntity<Map<String, Object>> getMyPost(Authentication auth) {
+
+        Member member = (Member)auth.getPrincipal();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("posts", boardService.findPostListByUser(member.getMemberId()));
+        return ResponseEntity.ok(map);
+    }
+
+    //글 검색
+    @GetMapping("/board/search")
+    public  ResponseEntity<Map<String, Object>> search(
+            @RequestParam(value="searchType") String type,@RequestParam(value="search") String word){
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("posts", boardService.searchList(word, Integer.parseInt(type)));
+
+        return ResponseEntity.ok(map);
+    }
+
 }
