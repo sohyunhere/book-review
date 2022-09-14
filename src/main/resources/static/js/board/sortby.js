@@ -13,7 +13,11 @@ function sortByLatest(){
         success:
             function (data) {
                $("#latest").attr("disabled", "disabled");
+               $("#latest").addClass("btn-primary");
+               $("#latest").removeClass("btn-outline-primary");
                $("#view").removeAttr("disabled");
+               $("#view").removeClass("btn-secondary");
+               $("#view").addClass("btn-outline-secondary");
                 setGridData(data.posts);
             },
         error :
@@ -37,7 +41,11 @@ function sortByView(){
         success:
             function (data) {
                 $("#latest").removeAttr("disabled");
+                $("#latest").removeClass("btn-primary");
+                $("#latest").addClass("btn-outline-primary");
                 $("#view").attr("disabled", "disabled");
+                $("#view").addClass("btn-secondary");
+                $("#view").removeClass("btn-outline-secondary");
                 setGridData(data.posts);
             },
         error :

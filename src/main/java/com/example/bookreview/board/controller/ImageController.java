@@ -17,7 +17,7 @@ public class ImageController implements WebMvcConfigurer {
         uploadPath += File.separator + "editorUpload";
         registry
                 // 이미지 파일의 요청 경로를 지정한다.
-                .addResourceHandler("/images/**")
+                .addResourceHandler("/editorUpload/**")
                 // 이미지 파일을 불러올 로컬 저장소의 위치를 지정한다.
                 .addResourceLocations(uploadPath);
     }

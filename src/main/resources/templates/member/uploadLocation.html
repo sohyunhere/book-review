@@ -35,7 +35,11 @@
 
                         function uploadLocation(){
                             $("#uploadLocation").attr("disabled", "disabled");
+                            $("#uploadLocation").addClass("btn-primary");
+                            $("#uploadLocation").removeClass("btn-outline-primary");
                             $("#uploadSpace").removeAttr("disabled");
+                            $("#uploadSpace").removeClass("btn-secondary");
+                            $("#uploadSpace").addClass("btn-outline-secondary");
                             let positions = new Array();
                             markers = new Array();
                             posts.forEach(function (post){
@@ -78,7 +82,11 @@
                         }
                         function uploadSpace(){
                             $("#uploadSpace").attr("disabled", "disabled");
+                            $("#uploadSpace").addClass("btn-secondary");
+                            $("#uploadSpace").removeClass("btn-outline-secondary");
                             $("#uploadLocation").removeAttr("disabled");
+                            $("#uploadLocation").removeClass("btn-primary");
+                            $("#uploadLocation").addClass("btn-outline-primary");
 
                             if(posts.length > 2){
                                 let polygonPath = new Array();
