@@ -64,6 +64,9 @@ function uploadImage(blob) {
 }
 
 function checkAll() {
+    let fileUpload = $("#formFile");
+    let files = fileUpload[0].files;
+    console.log(files.length);
 
     if (!checkExistData(writePostForm.postTitle.value, "제목을")) {
         writePostForm.postTitle.focus();
@@ -98,15 +101,15 @@ function checkAll() {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let content = editor.getHTML();
-        let formData = new FormData();
-        let fileUpload = $("#formFile");
-        let files = fileUpload[0].files;
-
-        $(files).each(function (i, file) { // 여러 개의 파일을 업로드할 때 formData에 저장
-            formData.append("uploadfile", file);
-
-        });
-        console.log(formData);
+        // let formData = new FormData();
+        // let fileUpload = $("#formFile");
+        // let files = fileUpload[0].files;
+        //
+        // $(files).each(function (i, file) { // 여러 개의 파일을 업로드할 때 formData에 저장
+        //     formData.append("uploadfile", file);
+        //
+        // });
+        // console.log(formData);
 
         $.ajax({
             async: true,
@@ -120,21 +123,24 @@ function checkAll() {
             categoryId : $("#categoryId").val(),
             writtenDate : moment().format(),
             content : content,
-            formFile : $("#formFile").val(),
             lat : lan,
             lng : lng
             }),
             url : "/board/write",
-            // processData: false,
             contentType : "application/json; charset=UTF-8",
-            // contentType : false,
             beforeSend: function(xhr){
                 xhr.setRequestHeader(header, token);
             },
             success:
                 function (postId) {
+                    if(files.length == 1){
+                        //첨부파일이 존재할 경우
+                        uploadFile();
+                    }
+                    //첨부파일 없음
                     alert("게시글 등록이 완료되었습니다");
                     location.href = "/board/"+ postId;
+
                 },
             error :
                 function (request, status, error){
@@ -143,6 +149,9 @@ function checkAll() {
           });
     }
     return true;
+}
+function uploadFile(){
+
 }
 function checkReadDate(value){
     if (!checkExistData(value, "읽은 날짜")) {

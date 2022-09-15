@@ -18,12 +18,10 @@ public class AttachedFile implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILE_ID_GENERATOR")
     private Long fileId;
 
-    private int fsize;
-    private String ftype;
+    @Column(name = "NAME")
     private String name;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date writtenDate;
+    @Column(name = "PATH")
+    private String path;
 
     @ManyToOne
     @JoinColumn(name="POST_ID")

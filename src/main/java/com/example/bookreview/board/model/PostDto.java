@@ -29,7 +29,7 @@ public class PostDto {
     private String publisher;
 
     //빼기
-    private String formFile;
+//    private String formFile;
 
     private Location location;
     private Long locationId;
