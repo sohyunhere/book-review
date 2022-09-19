@@ -1,13 +1,15 @@
 package com.example.bookreview.board.controller;
 
+import com.example.bookreview.file.model.AttachedFile;
+import com.example.bookreview.file.model.AttachedFileDto;
+import com.example.bookreview.file.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -18,7 +20,12 @@ import java.util.UUID;
 public class UploadController {
 
     @Value("${com.example.upload.path}") // application.properties의 변수
-    private String uploadPath;
+    private String uploadPath;//이미지 파일 경로
+
+    @Value("${com.example.upload.filepath}")
+    private String filePath;//첨부 파일 경로
+
+    private final FileService fileService;
 
     //위지윅 에디터 이미지 업로드
     @PostMapping("/board/image/editorUpload")
@@ -34,5 +41,32 @@ public class UploadController {
 
         log.info("toastUploadPath : "+toastUploadPath);
         return toastUploadPath;
+    }
+
+    //첨부파일 업로드
+    @PostMapping("/board/fileUpload")
+    public String uploadFile(@RequestParam("uploadfile") MultipartFile uploadFile, @RequestParam("postId") long postId) throws IOException {
+
+        //랜덤 문자 생성
+        UUID uid = UUID.randomUUID();
+        String fileName = uploadFile.getOriginalFilename();//파일 이름 가져오기\
+        String savedFileName = uid + "_" + fileName;
+
+        File file = new File(filePath, savedFileName);
+        uploadFile.transferTo(file);
+
+        AttachedFileDto dto = new AttachedFileDto();
+        dto.setName(fileName);
+        dto.setPostId(postId);
+        dto.setPath(filePath + savedFileName);
+
+        AttachedFile savedFile = fileService.registerFile(dto);
+
+        return String.valueOf(savedFile.getFileId());
+    }
+
+    @GetMapping("/filedownload/{idx}")
+    public void downloadFile(@PathVariable("idx") Long fileId, HttpServletResponse response) throws Exception {
+        fileService.downloadFile(fileId, response);
     }
 }

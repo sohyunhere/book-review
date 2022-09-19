@@ -7,6 +7,8 @@ import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
 import com.example.bookreview.board.service.CommentService;
+import com.example.bookreview.file.model.AttachedFile;
+import com.example.bookreview.file.service.FileService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ public class BoardWebController {
     private final CategoryService categoryService;
     private final BoardService boardService;
     private final CommentService commentService;
+    private final FileService fileService;
 
     //글쓰기 페이지로 이동
     @GetMapping("/board/write")
@@ -38,7 +41,16 @@ public class BoardWebController {
     public String postView(@PathVariable("postId") Long id, Model model) throws Exception {
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());
+        AttachedFile file = new AttachedFile();
 
+        try{
+             file = fileService.getFile(id);
+        }catch (IllegalStateException e){
+            file = null;
+            log.info(String.valueOf(file));
+        }
+
+        model.addAttribute("file", file);
         model.addAttribute("post", post);
         return "board/v_post";
     }

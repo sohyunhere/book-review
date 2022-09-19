@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter
 @Builder
 @AllArgsConstructor
+@Table(name="ATTACHEDFILE")
 public class AttachedFile implements Serializable {
     @Id
     @Column(name = "FILE_ID")

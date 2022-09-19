@@ -101,15 +101,6 @@ function checkAll() {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         let content = editor.getHTML();
-        // let formData = new FormData();
-        // let fileUpload = $("#formFile");
-        // let files = fileUpload[0].files;
-        //
-        // $(files).each(function (i, file) { // 여러 개의 파일을 업로드할 때 formData에 저장
-        //     formData.append("uploadfile", file);
-        //
-        // });
-        // console.log(formData);
 
         $.ajax({
             async: true,
@@ -135,7 +126,7 @@ function checkAll() {
                 function (postId) {
                     if(files.length == 1){
                         //첨부파일이 존재할 경우
-                        uploadFile();
+                        uploadFile(postId, files);
                     }
                     //첨부파일 없음
                     alert("게시글 등록이 완료되었습니다");
@@ -150,7 +141,35 @@ function checkAll() {
     }
     return true;
 }
-function uploadFile(){
+function uploadFile(postId, files){
+    let header = $("meta[name='_csrf_header']").attr('content');
+    let token = $("meta[name='_csrf']").attr('content');
+
+    let formData = new FormData();
+    formData.append("uploadfile", files[0]);
+    formData.append("postId", postId);
+
+    console.log(formData);
+
+    $.ajax({
+        url : "/board/fileUpload",
+        type : "POST",
+        processData : false,
+        contentType : false,
+        data : formData,
+        beforeSend: function(xhr){
+            xhr.setRequestHeader(header, token);
+            },
+
+        success:function(response) {
+            console.log(response);
+        },
+        error: function (jqXHR)
+        {
+            alert(jqXHR.responseText);
+        }
+    });
+
 
 }
 function checkReadDate(value){
