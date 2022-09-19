@@ -54,8 +54,8 @@ public class Post  implements Serializable {
     private Location location;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "post")
-    private List<AttachedFile> attachedFileList;
+    @OneToOne(mappedBy = "post", orphanRemoval=true)
+    private AttachedFile attachedFile;
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")

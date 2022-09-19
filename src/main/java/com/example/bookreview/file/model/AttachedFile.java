@@ -24,7 +24,7 @@ public class AttachedFile implements Serializable {
     @Column(name = "PATH")
     private String path;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="POST_ID")
     private Post post;
 

@@ -23,9 +23,6 @@ public class Location implements Serializable {
     @Column(name="LNG")
     private BigDecimal lng;
 
-//    @OneToOne(mappedBy = "location", optional = false)
-//    private Post post;
-
     public Location() {
 
     }

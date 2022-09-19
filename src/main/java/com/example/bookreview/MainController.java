@@ -1,7 +1,6 @@
 package com.example.bookreview;
 
 import com.example.bookreview.board.model.Category;
-import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
 import lombok.RequiredArgsConstructor;

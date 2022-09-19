@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface FileRepo extends JpaRepository<AttachedFile, Long> {
     Optional<AttachedFile> findAttachedFileByPostPostId(Long postId);
+    void deleteAttachedFileByPostPostId(Long postId);
 }

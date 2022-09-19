@@ -24,12 +24,8 @@ public class PostDto {
     private Date writtenDate;
     private Long viewCount;
 
-
     private String author;
     private String publisher;
-
-    //빼기
-//    private String formFile;
 
     private Location location;
     private Long locationId;
