@@ -2,6 +2,7 @@ package com.example.bookreview.board.service;
 
 import com.example.bookreview.board.model.Comments;
 import com.example.bookreview.board.model.CommentsDto;
+import com.example.bookreview.board.repo.CommentQueryRepo;
 import com.example.bookreview.board.repo.CommentRepo;
 import com.example.bookreview.user.model.Member;
 import com.example.bookreview.user.service.MemberService;
@@ -21,6 +22,7 @@ public class CommentService {
     private final CommentRepo commentRepo;
     private final BoardService boardService;
     private final MemberService memberService;
+    private final CommentQueryRepo commentQueryRepo;
 
     //댓글 작성
     @Transactional
@@ -52,5 +54,12 @@ public class CommentService {
         Member member = memberService.findMemberByEmail(email);
         List<Comments> comments = member.getComments();
         return comments;
+    }
+
+    //댓글 내용 수정
+    @Transactional
+    public Long updateComment(Long commentId, String content){
+        commentQueryRepo.updateContent(commentId, content);
+        return commentId;
     }
 }

@@ -121,14 +121,15 @@
     </div>
     <br/>
     <div class="card mb-2" th:each="comm: ${post.getComments()}">
-        <div class="card-header" th:text="'작성자 :'+ ${comm.member.memberNickname}"></div>
+        <div class="card-header" th:text="'작성자 : '+ ${comm.member.memberNickname}"></div>
         <ul id="reply--box" class="list-group">
             <li id="reply--1" class="list-group-item d-flex justify-content-between">
-                <div th:text="${comm.content}">댓글 내용입니다.!</div>
+                <input type="text" th:id="'com'+${comm.commentId}" th:value="${comm.content}" readonly>
                 <div class="d-flex">
                     <div class="text-monospace" th:text="'작성일 :'+${#dates.format(comm.writtenDate, 'yyyy-MM-dd HH:mm:ss')}">작성일 : 날짜 &nbsp;</div>
-<!--                    <button class="badge btn-warning">수정</button><span> | </span>-->
+
                     <div th:if="${comm.member.memberEmail.equals(#authentication.getName())}">
+                        <button th:id="update + ${comm.commentId}" type="button" class="btn btn-dark" th:onclick="'javascript:updateComment('+${comm.commentId}+')'">수정</button>
                         <button type="button" class="btn btn-dark" th:onclick="'javascript:deleteComment('+${comm.commentId}+')'">삭제</button>
                     </div>
                 </div>
@@ -141,6 +142,7 @@
 <script src="/js/board/deletePost.js"></script>
 <script src="/js/board/writeComment.js"></script>
 <script src="/js/board/deleteComment.js"></script>
+<script src="/js/board/updateComment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>

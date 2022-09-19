@@ -30,4 +30,12 @@ public class CommentController
         Long commentId = commentService.deleteComment(id);
         return Math.toIntExact(commentId);
     }
+
+    //댓글 수정
+    @PostMapping("/board/update/comment/{commentId}")
+    public int updateComment(@PathVariable("commentId") Long id,
+                             @RequestParam(value="content") String content){
+        Long commentId = commentService.updateComment(id, content);
+        return Math.toIntExact(commentId);
+    }
 }
