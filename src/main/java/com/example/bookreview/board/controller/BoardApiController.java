@@ -18,6 +18,7 @@ import java.util.Map;
 @Slf4j
 public class BoardApiController {
     private final BoardService boardService;
+    private final FileService fileService;
 
 
     //글 작성
@@ -37,7 +38,13 @@ public class BoardApiController {
 
         return Math.toIntExact(id);
     }
-
+    //파일 삭제
+    @GetMapping("/delete/{fileId}")
+    public int deleteFile(@PathVariable("fileId") Long id){
+        log.info("ddd");
+        fileService.deleteFile(id);
+        return Math.toIntExact(id);
+    }
 
     //글 삭제
     @PostMapping("/board/delete/post/{postId}")

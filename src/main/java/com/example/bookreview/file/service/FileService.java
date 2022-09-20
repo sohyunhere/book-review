@@ -70,4 +70,9 @@ public class FileService {
             throw new Exception("download error");
         }
     }
+
+    //파일 삭제
+    public void deleteFile(long fileId){
+        fileRepo.deleteById(fileId);
+    }
 }

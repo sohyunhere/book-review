@@ -38,19 +38,10 @@ public class BoardWebController {
 
     //글 보기 + 조회수 1씩 올리기
     @GetMapping("/board/{postId}")
-    public String postView(@PathVariable("postId") Long id, Model model) throws Exception {
+    public String postView(@PathVariable("postId") Long id, Model model){
         Post post = boardService.findPostBypostId(id);
         boardService.updateVisit(id, post.getViewCount());
-        AttachedFile file = new AttachedFile();
 
-        try{
-             file = fileService.getFile(id);
-        }catch (IllegalStateException e){
-            file = null;
-            log.info(String.valueOf(file));
-        }
-
-        model.addAttribute("file", file);
         model.addAttribute("post", post);
         return "board/v_post";
     }

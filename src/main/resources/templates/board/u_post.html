@@ -48,7 +48,20 @@
             <input type="hidden" id="content" name="content" th:value="${post.content}">
         </div>
 
-        <div class="mb-3">
+        <div th:if="${post.getAttachedFile() != null}">
+            <div class="mb-3">
+                <div id="f">
+                    <label for="file" class="form-label">첨부파일 : </label>
+                    <span th:text="${post.getAttachedFile().getName()}"></span>
+                    <a href="javascript:void(0)" th:onclick="'deletefile('+${post.getAttachedFile().fileId}+')'" id="file" >삭제</a>
+                </div>
+                <div id="ff" style="display: none">
+                    <input class="form-control" id="formFile2" name="formFile2" type="file">
+                </div>
+
+            </div>
+        </div>
+        <div class="mb-3"th:if="${post.getAttachedFile() == null}">
             <label for="formFile" class="form-label">첨부파일</label>
             <input class="form-control" type="file" id="formFile" name="formFile">
         </div>
@@ -61,4 +74,6 @@
 <div th:replace="layout/fragments :: footer"></div>
 </body>
 <script src="/js/board/updatePost.js"> </script>
+<script src="/js/board/uploadFile.js"></script>
+
 </html>

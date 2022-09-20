@@ -87,10 +87,10 @@
                 </div>
                 <div id="viewer"></div>
             <br/><br/>
-            <div th:if="${file != null}">
+            <div th:if="${post.getAttachedFile() != null}">
                 <div class="mb-3">
                     <label for="file" class="form-label">첨부파일 : </label>
-                    <a th:href="@{'/filedownload/' + ${file.fileId}}" id="file" th:text="${file.getName()}"></a>
+                    <a th:href="@{'/filedownload/' + ${post.getAttachedFile().fileId}}" id="file" th:text="${post.getAttachedFile().getName()}"></a>
                 </div>
             </div>
         </div>
