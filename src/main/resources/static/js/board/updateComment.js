@@ -11,6 +11,7 @@ function updateComment(commentId) {
 }
 function saveUpdateComm(commentId) {
     let commentcon = 'com' + commentId;
+    let updatebtn = 'update' + commentId;
     if(confirm("댓글을 수정하시겠습니까?")) {
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
@@ -26,8 +27,11 @@ function saveUpdateComm(commentId) {
             },
             success:
                 function (result) {
-                    alert("댓글이 수정되었습니다");
-                    location.href = "/board/" + postId;
+                    $("#" + commentcon).prop("readonly", true);
+                    $("#" + updatebtn).html('수정');
+
+                    $("#" + updatebtn).removeAttr("onclick");
+                    $("#" + updatebtn).attr("onclick", "updateComment("+commentId+")");
                 },
             error:
                 function (request, status, error) {

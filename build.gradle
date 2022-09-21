@@ -57,6 +57,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
 
+	//spring batch
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	testImplementation 'org.springframework.batch:spring-batch-test'
+
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-devtools'
