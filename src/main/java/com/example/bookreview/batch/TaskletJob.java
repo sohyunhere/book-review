@@ -27,7 +27,7 @@ public class TaskletJob {
     public Step taskletJob_step1(){
         return stepBuilderFactory.get("taskletJob_step1")
                 .tasklet((a, b) -> {
-                    log.debug("-> job -> [step1]");
+                    log.info("-> job -> [step1]");
                     return RepeatStatus.FINISHED;
                 }).build();
     }
