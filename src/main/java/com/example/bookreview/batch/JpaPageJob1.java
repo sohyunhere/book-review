@@ -57,7 +57,7 @@ public class JpaPageJob1 {
                 .name("JpaPageJob1_dbItemReader")
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(chunkSize)
-                .queryString("SELECT category_id, count(category_id) from Post where writtenDate < '2022-09-23' AND writtenDate > '2022-09-16' GROUP BY category_id")
+                .queryString("SELECT category.categoryId, count(category.categoryId) from Post where writtenDate < '2022-09-23' AND writtenDate > '2022-09-16' GROUP BY category.categoryId")
                 .build();
     }
 
