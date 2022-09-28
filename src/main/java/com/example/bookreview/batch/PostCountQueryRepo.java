@@ -20,11 +20,11 @@ public class PostCountQueryRepo extends QuerydslRepositorySupport {
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
-    public void selectCount(String name, Date time){
-        jpaQueryFactory
+    public PostCount selectCount(String name, LocalDate time){
+        return jpaQueryFactory
                 .selectFrom(postCount)
                 .where(postCount.categoryName.eq(name)
-                .and(postCount.time.eq((Expression<? super LocalDate>) time)))
+                .and(postCount.time.eq(time)))
                 .fetchOne();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.bookreview.batch.model;
 
+import com.example.bookreview.batch.PostCountQueryRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class ChartService {
+    private final PostCountQueryRepo postCountQueryRepo;
 
     LocalDate today = LocalDate.now();
     LocalDate yesterday = today.minusDays(1);
@@ -31,8 +33,118 @@ public class ChartService {
     public List<Integer> literatureData(){
         List<Integer> data = new ArrayList<>();
         for(int i = 0; i < days.size(); i++){
-
+            PostCount entity = postCountQueryRepo.selectCount("문학", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
         }
-
+        return data;
+    }
+    public List<Integer> philosophyData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("철학", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> ssData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("사회과학", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> tsData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("기술과학", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> nsData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("자연과학", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> artData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("예술", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> lanData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("언어", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> hisData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("역사", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
+    }
+    public List<Integer> exData(){
+        List<Integer> data = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            PostCount entity = postCountQueryRepo.selectCount("키타", LocalDate.parse(days.get(i)));
+            if(entity == null){
+                data.add(0);
+            }
+            else{
+                data.add(entity.getCountPost());
+            }
+        }
+        return data;
     }
 }

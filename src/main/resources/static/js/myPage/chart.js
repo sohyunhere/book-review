@@ -128,9 +128,17 @@ let myChart = new Chart(context, {
     }
 });
 function drawChart(data) {
-
     for(let i=0; i< data.days.length; i++){
         labels.push(data.days[i]);
+        literature.push(data.literature[i]);
+        philosophy.push(data.philosophy[i]);
+        ss.push(data.ss[i]);
+        ts.push(data.ts[i]);
+        ns.push(data.ns[i]);
+        art.push(data.art[i]);
+        lan.push(data.lan[i]);
+        his.push(data.his[i]);
+        ex.push(data.ex[i]);
     }
     myChart.update();
 }

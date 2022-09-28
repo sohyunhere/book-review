@@ -85,16 +85,15 @@ public class BoardApiController {
         Map<String, Object> map = new HashMap<>();
 
         map.put("days", chartService.findLabels());
-//        map.put("literature", chartService.findLabels());
-        map.put("philosophy", chartService.findLabels());
-        map.put("ss", chartService.findLabels());
-        map.put("ts", chartService.findLabels());
-        map.put("ns", chartService.findLabels());
-        map.put("art", chartService.findLabels());
-        map.put("lan", chartService.findLabels());
-        map.put("his", chartService.findLabels());
-        map.put("ex", chartService.findLabels());
-
+        map.put("literature", chartService.literatureData());
+        map.put("philosophy", chartService.philosophyData());
+        map.put("ss", chartService.ssData());
+        map.put("ts", chartService.tsData());
+        map.put("ns", chartService.nsData());
+        map.put("art", chartService.artData());
+        map.put("lan", chartService.lanData());
+        map.put("his", chartService.hisData());
+        map.put("ex", chartService.exData());
 
         return ResponseEntity.ok(map);
     }
