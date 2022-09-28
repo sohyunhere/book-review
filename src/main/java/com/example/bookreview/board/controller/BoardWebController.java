@@ -7,7 +7,6 @@ import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.board.service.CategoryService;
 import com.example.bookreview.board.service.CommentService;
-import com.example.bookreview.file.model.AttachedFile;
 import com.example.bookreview.file.service.FileService;
 import com.example.bookreview.user.model.Member;
 import lombok.RequiredArgsConstructor;
@@ -78,5 +77,11 @@ public class BoardWebController {
         List<Post> posts = boardService.findPostListByUser(member.getMemberId());
         model.addAttribute("posts", posts);
         return "member/uploadLocation";
+    }
+
+    //게시판 통계
+    @GetMapping("/board/chart")
+    public String drawChart(){
+        return "member/boardChart";
     }
 }

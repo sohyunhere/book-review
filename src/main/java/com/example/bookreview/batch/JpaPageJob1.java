@@ -7,13 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,6 +35,8 @@ public class JpaPageJob1 {
     private final EntityManagerFactory entityManagerFactory;
 
     private int chunkSize = 10;
+    LocalDate today = LocalDate.now();
+    LocalDate yesterday = today.minusDays(1);
 
     @Bean
     public Job JpaPageJob1_batchBuild(){
@@ -41,6 +45,7 @@ public class JpaPageJob1 {
     }
 
     @Bean
+    @JobScope
     public Step JpaPageJob1_step1(){
         return stepBuilderFactory
                 .get("JpaPageJob1_step1")
@@ -52,16 +57,22 @@ public class JpaPageJob1 {
     }
 
     @Bean
+    @StepScope
     public JpaPagingItemReader<Post> JpaPageJob1_dbItemReader(){
         return new JpaPagingItemReaderBuilder<Post>()
                 .name("JpaPageJob1_dbItemReader")
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(chunkSize)
-                .queryString("SELECT category.categoryId, count(category.categoryId) from Post where writtenDate < '2022-09-23' AND writtenDate > '2022-09-16' GROUP BY category.categoryId")
+                .queryString("SELECT category.categoryName, count(category.categoryName) " +
+                        "FROM Post " +
+                        "WHERE writtenDate BETWEEN TO_DATE('"+yesterday+
+                        "', 'YYYY-MM-DD') AND TO_DATE('"+today +
+                        "', 'YYYY-MM-DD') GROUP BY category.categoryName")
                 .build();
     }
-
-    private ItemProcessor<Object, PostCount> JpaPageJob1_processor(){
+    @Bean
+    @StepScope
+    public ItemProcessor<Object, PostCount> JpaPageJob1_processor(){
         return items -> {
             Object[] objects = (Object[]) items;
             Iterator<Object> iterator = Arrays.stream(objects).iterator();
@@ -73,12 +84,15 @@ public class JpaPageJob1 {
             }
 
             return PostCount.builder()
-                    .category_Id(list.get(0))
+                    .categoryName(list.get(0))
                     .countPost(Integer.parseInt(list.get(1)))
-                    .time(LocalDate.now())
+                    .time(yesterday)
                     .build();
         };
     }
+
+    @Bean
+    @StepScope
     public JpaItemWriter<PostCount> JpaPageJob1_dbItemWriter(){
         JpaItemWriter<PostCount> jpaItemWriter = new JpaItemWriter<>();
         jpaItemWriter.setEntityManagerFactory(entityManagerFactory);

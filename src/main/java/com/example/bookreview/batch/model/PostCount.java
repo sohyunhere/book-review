@@ -7,9 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
@@ -28,8 +25,8 @@ public class PostCount {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate time;
 
-    @Column(name = "CATEGORY_ID")
-    private String category_Id;
+    @Column(name = "CATEGORY_NAME")
+    private String categoryName;
 
     @Column(name = "COUNTPOST")
     private int countPost;

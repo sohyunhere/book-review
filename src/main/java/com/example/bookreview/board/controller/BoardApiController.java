@@ -1,5 +1,6 @@
 package com.example.bookreview.board.controller;
 
+import com.example.bookreview.batch.model.ChartService;
 import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.service.BoardService;
 import com.example.bookreview.file.service.FileService;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class BoardApiController {
     private final BoardService boardService;
     private final FileService fileService;
+    private final ChartService chartService;
 
 
     //글 작성
@@ -73,6 +75,26 @@ public class BoardApiController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("posts", boardService.searchList(word, Integer.parseInt(type)));
+
+        return ResponseEntity.ok(map);
+    }
+
+    //차트데이터 보내기
+    @GetMapping("/chart/data")
+    public  ResponseEntity<Map<String, Object>> chart(){
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("days", chartService.findLabels());
+//        map.put("literature", chartService.findLabels());
+        map.put("philosophy", chartService.findLabels());
+        map.put("ss", chartService.findLabels());
+        map.put("ts", chartService.findLabels());
+        map.put("ns", chartService.findLabels());
+        map.put("art", chartService.findLabels());
+        map.put("lan", chartService.findLabels());
+        map.put("his", chartService.findLabels());
+        map.put("ex", chartService.findLabels());
+
 
         return ResponseEntity.ok(map);
     }
