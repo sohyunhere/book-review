@@ -1,14 +1,12 @@
 package com.example.bookreview.batch;
 
 import com.example.bookreview.batch.model.PostCount;
-import com.querydsl.core.types.Expression;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import static com.example.bookreview.batch.model.QPostCount.postCount;
 
 @Repository

@@ -16,8 +16,6 @@ public class ChartService {
     private final PostCountQueryRepo postCountQueryRepo;
 
     LocalDate today = LocalDate.now();
-    LocalDate yesterday = today.minusDays(1);
-    LocalDate lastday = today.minusDays(7);
     List<String> days;
 
     public List<String> findLabels(){
