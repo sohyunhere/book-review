@@ -140,5 +140,7 @@ function drawChart(data) {
         his.push(data.his[i]);
         ex.push(data.ex[i]);
     }
+    console.log(lan);
+    console.log(ex);
     myChart.update();
 }

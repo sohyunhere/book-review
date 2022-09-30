@@ -109,7 +109,7 @@ public class ChartService {
     public List<Integer> lanData(){
         List<Integer> data = new ArrayList<>();
         for(int i = 0; i < days.size(); i++){
-            PostCount entity = postCountQueryRepo.selectCount("언어", LocalDate.parse(days.get(i)));
+            PostCount entity = postCountQueryRepo.selectCount("어학", LocalDate.parse(days.get(i)));
             if(entity == null){
                 data.add(0);
             }
@@ -135,7 +135,7 @@ public class ChartService {
     public List<Integer> exData(){
         List<Integer> data = new ArrayList<>();
         for(int i = 0; i < days.size(); i++){
-            PostCount entity = postCountQueryRepo.selectCount("키타", LocalDate.parse(days.get(i)));
+            PostCount entity = postCountQueryRepo.selectCount("기타", LocalDate.parse(days.get(i)));
             if(entity == null){
                 data.add(0);
             }

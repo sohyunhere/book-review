@@ -35,8 +35,6 @@ public class JpaPageJob1 {
     private final EntityManagerFactory entityManagerFactory;
 
     private int chunkSize = 10;
-    LocalDate today = LocalDate.now();
-    LocalDate yesterday = today.minusDays(1);
 
     @Bean
     public Job JpaPageJob1_batchBuild(){
@@ -59,6 +57,9 @@ public class JpaPageJob1 {
     @Bean
     @StepScope
     public JpaPagingItemReader<Post> JpaPageJob1_dbItemReader(){
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+
         return new JpaPagingItemReaderBuilder<Post>()
                 .name("JpaPageJob1_dbItemReader")
                 .entityManagerFactory(entityManagerFactory)
@@ -73,6 +74,8 @@ public class JpaPageJob1 {
     @Bean
     @StepScope
     public ItemProcessor<Object, PostCount> JpaPageJob1_processor(){
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+
         return items -> {
             Object[] objects = (Object[]) items;
             Iterator<Object> iterator = Arrays.stream(objects).iterator();
