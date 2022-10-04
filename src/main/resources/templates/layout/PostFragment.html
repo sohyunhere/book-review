@@ -85,11 +85,13 @@
                     grid.setPerPage(count);
                 }
                 function formatDate(date){
+                    let utc = new Date(date);
+                    console.log(utc);
                     let formated= "";
-                    let split = date.split('T');
-                    formated += split[0] + " ";
-                    let time = split[1].split('.');
-                    formated += time[0];
+                    let month = utc.getMonth()+1;
+                    formated += utc.getFullYear() +"-"+ month+"-"+utc.getDate() + " ";
+                    let split = utc.toString().split(' ');
+                    formated += split[4];
 
                     return formated;
                 }
