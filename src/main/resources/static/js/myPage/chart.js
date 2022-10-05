@@ -116,11 +116,28 @@ let myChart = new Chart(context, {
         ]
     },
     options: {
+        tooltips: {
+            mode: 'index',
+            intersect: false
+        },
+        title: {
+            display: true,
+            text: '카테고리 별 업로드된 게시글'
+        },
+        hover: {
+            mode: 'index',
+            intersect: false
+        },
         scales: {
             yAxes: [
                 {
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    },
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        stepSize: 1
                     }
                 }
             ]
