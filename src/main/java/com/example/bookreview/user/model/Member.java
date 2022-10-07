@@ -1,7 +1,6 @@
 package com.example.bookreview.user.model;
 
 import com.example.bookreview.board.model.Comments;
-import com.example.bookreview.board.model.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -45,6 +44,14 @@ public class Member implements UserDetails, Serializable{
     public Member() {
 
     }
+
+    public Member(Long memberId, String memberEmail, String memberPassword, String memberNickname) {
+        this.memberId = memberId;
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
+        this.memberNickname = memberNickname;
+    }
+
     @Transactional
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
