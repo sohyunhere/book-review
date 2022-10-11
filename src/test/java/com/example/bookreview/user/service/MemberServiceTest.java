@@ -2,6 +2,7 @@ package com.example.bookreview.user.service;
 
 import com.example.bookreview.user.model.Member;
 import com.example.bookreview.user.model.SignupDto;
+import com.example.bookreview.user.repo.MemberQueryRepo;
 import com.example.bookreview.user.repo.MemberRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,9 @@ class MemberServiceTest {
     @Mock
     private MemberRepo memberRepo;
 
+    @Mock
+    private MemberQueryRepo memberQueryRepo;
+
 //    @InjectMocks
     @Autowired
     private MemberService memberService;
@@ -45,7 +49,6 @@ class MemberServiceTest {
         assertNotNull(member);
     }
     @Test
-    @Transactional
     void join() throws Exception {
         SignupDto signupDto = new SignupDto();
         signupDto.setPassword("yesyes");
@@ -57,5 +60,18 @@ class MemberServiceTest {
         Member member = memberService.findMemberByEmail(signupDto.getEmail());
         assertThat(signupDto.getNickname()).isEqualTo(member.getMemberNickname());
         assertThat(signupDto.getPassword()).isEqualTo(member.getPassword());
+        System.out.println("닉네임:"+ member.getMemberNickname());
+    }
+
+    @Test
+    void updateNickname(){
+        Member member = memberService.findMemberByEmail("1111@gmail.com");
+        System.out.println("아이디: " + member.getMemberId());
+        Member change = memberService.updateNickname(member.getMemberId(),"닉네임바꾸기");
+        System.out.println("바뀐 닉네임: "+change.getMemberNickname());
+        assertThat(member.getMemberEmail()).isEqualTo(change.getMemberEmail());
+        assertFalse(member.getMemberNickname().equals(change.getMemberNickname()));
+        System.out.println("바뀐 닉네임: "+change.getMemberNickname());
+
     }
 }
