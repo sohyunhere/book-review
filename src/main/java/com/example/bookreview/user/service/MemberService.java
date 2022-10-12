@@ -38,6 +38,7 @@ public class MemberService implements UserDetailsService {
     @Transactional
     public void join(SignupDto signupDto) throws Exception {
         String encodedPassword = passwordEncoder.encode(signupDto.getPassword());
+
         signupDto.setPassword(encodedPassword);
 
         Member saveMember = signupDto.toEntity();
