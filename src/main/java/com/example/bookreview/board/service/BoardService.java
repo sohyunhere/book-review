@@ -4,7 +4,6 @@ import com.example.bookreview.board.model.Post;
 import com.example.bookreview.board.model.PostDto;
 import com.example.bookreview.board.repo.BoardQueryRepo;
 import com.example.bookreview.board.repo.BoardRepo;
-import com.example.bookreview.file.service.FileService;
 import com.example.bookreview.location.model.Location;
 import com.example.bookreview.location.model.LocationDto;
 import com.example.bookreview.location.service.LocationService;
