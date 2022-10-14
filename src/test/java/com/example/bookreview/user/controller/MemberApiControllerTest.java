@@ -2,6 +2,7 @@ package com.example.bookreview.user.controller;
 
 import com.example.bookreview.user.controller.MemberApiController;
 import com.example.bookreview.user.model.Member;
+import com.example.bookreview.user.model.SigninDto;
 import com.example.bookreview.user.service.MemberService;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
@@ -55,6 +57,23 @@ public class MemberApiControllerTest {
                         .with(anonymous()))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    @Transactional
+    public void 로그인성공() throws Exception{
+        String username = "test";
+        String tier="Silver I";
+        String email="test@gmail.com";
+        String password = "12345";
+
+        SigninDto member=new SigninDto();
+        (username, tier, email, password);
+        memberService.join(member);
+        // 성공 TEST
+        mockMvc.perform(formLogin().user(member.getName()).password(password))
+                .andDo(print())
+                .andExpect(authenticated());
     }
 
 //    @Test
