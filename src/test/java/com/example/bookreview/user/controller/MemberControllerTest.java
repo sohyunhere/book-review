@@ -1,35 +1,32 @@
 package com.example.bookreview.user.controller;
 
-import com.example.bookreview.user.controller.MemberApiController;
 import com.example.bookreview.user.model.Member;
-import com.example.bookreview.user.model.SigninDto;
 import com.example.bookreview.user.service.MemberService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Map;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -37,12 +34,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 //@WebMvcTest(MemberApiController.class)
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class MemberApiControllerTest {
+public class MemberControllerTest {
 
     @Autowired
     private WebApplicationContext context;
 
-//    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
@@ -80,36 +76,40 @@ public class MemberApiControllerTest {
     }//login 페이지로 이동
 
     @Test
-    @WithMockUser(roles = "USER")
-    public void index_user2() throws Exception {
-        mockMvc.perform(get("/member/mypage")
-                        .with(anonymous()))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(roles = "USER")
+//    @WithMockUser(roles = "USER")
     public void 로그인성공() throws Exception{
         String username = "test";
         String nickname ="소소";
         String email="test@gmail.com";
         String password = "12345";
 
-        Member member = new Member(100L, email, password, nickname);
+        Member member = new Member(100L, email, password, nickname, "ROLE_USER");
 
-        when(memberService.findMemberByEmail(any())).thenReturn(member);
+//        when(memberService.findMemberByEmail(any())).thenReturn(member);
 
-        mockMvc.perform(get("/member/mypage"))
-                        .andDo(print())
-                                .andExpect(status().isOk());
+        ResultActions resultActions = mockMvc.perform(get("/member/mypage")
+                        .with(user(member)))
+                .andExpect(status().isOk())
+                .andExpect(authenticated())
+                .andExpect(model().attribute("loginUser", member))
+                .andDo(print());
 
-//        memberService.join(member);
-//        // 성공 TEST
-//        mockMvc.perform(formLogin().user(member.getName()).password(password))
-//                .andDo(print())
-//                .andExpect(authenticated());
+        MvcResult mvcResult = resultActions.andReturn();
+        Map<String, Object> model = mvcResult.getModelAndView().getModel();
+
+        assertThat(model.get("loginUser")).isNotNull();
     }
+
+//    @Test
+//    @WithMockUser(roles = "USER")
+//    public void index_user2() throws Exception {
+//        mockMvc.perform(get("/member/mypage")
+//                        .param("model", new Model())
+//                        .param("auth", Authentication)
+//                        .with(anonymous()))
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//    }
 
 //    @Test
 //    public void index_user2() throws Exception {

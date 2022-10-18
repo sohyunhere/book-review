@@ -52,6 +52,14 @@ public class Member implements UserDetails, Serializable{
         this.memberNickname = memberNickname;
     }
 
+    public Member(Long memberId, String memberEmail, String memberPassword, String memberNickname, String role) {
+        this.memberId = memberId;
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
+        this.memberNickname = memberNickname;
+        this.role = role;
+    }
+
     @Transactional
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
