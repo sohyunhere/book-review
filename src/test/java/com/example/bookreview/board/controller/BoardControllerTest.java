@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -49,16 +50,23 @@ public class BoardControllerTest {
     }
 
     @Test
+    @WithUserDetails("shsh@gmail.com")
+    public void testUser(){
+//        boardService.print();
+    }
+
+    @Test
+    @WithUserDetails(value = "shsh@gmail.com")
     public void open_post_page() throws Exception {
 
-        String nickname ="소소";
-        String email="test@gmail.com";
-        String password = "12345";
+//        String nickname ="소소";
+//        String email="test@gmail.com";
+//        String password = "12345";
+//
+//        Member member = new Member(100L, email, password, nickname, "ROLE_USER");
 
-        Member member = new Member(100L, email, password, nickname, "ROLE_USER");
-
-        mockMvc.perform(get("/board/1")
-                     .with(user(member)))
+        mockMvc.perform(get("/board/1"))
+//                     .with(user(member)))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -75,7 +83,7 @@ public class BoardControllerTest {
         mockMvc.perform(post("/category/post/1")
                         .with(user(member))
                 .contentType(MediaType.APPLICATION_JSON))//본문 요청에 json을 담아서 보내고 있다고 알려줌.
-//                .accept(MediaTypes.HAL_JSON)//HAL_JSON으로 받는다.
+
 //                .content(objectMapper.writeValueAsString(event)))//요청 본문에 json으로 변환후 넣어준다
             .andDo(print())//어떤 응답과 요청을 받았는지 확인가능.
 //                .andExpect(status().isCreated());//201요청이 들어왔는지?
