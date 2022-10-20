@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,38 +28,33 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
-public class BoardControllerTest {
+//@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@AutoConfigureMockMvc
+//public class BoardControllerTest {
 
-    @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
-    private WebApplicationContext context;
+//    @Autowired
+//    private ObjectMapper objectMapper;
+//    @Autowired
+//    private WebApplicationContext context;
+//
+//    private MockMvc mockMvc;
+//
+//    @MockBean
+//    BoardService boardService;
 
-    private MockMvc mockMvc;
-
-    @MockBean
-    BoardService boardService;
-
-    @Before
-    public void setup(){
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .apply(springSecurity())
-                .build();
-    }
-
-    @Test
-    @WithUserDetails("shsh@gmail.com")
-    public void testUser(){
-//        boardService.print();
-    }
-
-    @Test
-    @WithUserDetails(value = "shsh@gmail.com")
-    public void open_post_page() throws Exception {
+//    @Before
+//    public void setup(){
+//        mockMvc = MockMvcBuilders
+//                .webAppContextSetup(context)
+//                .apply(springSecurity())
+//                .build();
+//    }
+//    @Test
+//    @WithMockUser(username = "test@gmail.com", password = "custom_password")
+//    @WithUserDetails(value = "shsh@gmail.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+//    public void open_post_page() throws Exception {
+//        mockMvc.perform(get("/board/1"));
 
 //        String nickname ="소소";
 //        String email="test@gmail.com";
@@ -65,28 +62,28 @@ public class BoardControllerTest {
 //
 //        Member member = new Member(100L, email, password, nickname, "ROLE_USER");
 
-        mockMvc.perform(get("/board/1"))
+//        mockMvc.perform(get("/board/1"))
 //                     .with(user(member)))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void page_category() throws Exception {
-
-        String nickname ="소소";
-        String email="test@gmail.com";
-        String password = "12345";
-
-        Member member = new Member(100L, email, password, nickname, "ROLE_USER");
-
-        mockMvc.perform(post("/category/post/1")
-                        .with(user(member))
-                .contentType(MediaType.APPLICATION_JSON))//본문 요청에 json을 담아서 보내고 있다고 알려줌.
-
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    public void page_category() throws Exception {
+//
+//        String nickname ="소소";
+//        String email="test@gmail.com";
+//        String password = "12345";
+//
+//        Member member = new Member(100L, email, password, nickname, "ROLE_USER");
+//
+//        mockMvc.perform(post("/category/post/1")
+//                        .with(user(member))
+//                .contentType(MediaType.APPLICATION_JSON))//본문 요청에 json을 담아서 보내고 있다고 알려줌.
+//
 //                .content(objectMapper.writeValueAsString(event)))//요청 본문에 json으로 변환후 넣어준다
-            .andDo(print())//어떤 응답과 요청을 받았는지 확인가능.
+//            .andDo(print())//어떤 응답과 요청을 받았는지 확인가능.
 //                .andExpect(status().isCreated());//201요청이 들어왔는지?
-                .andExpect(status().isOk());
-    }
-}
+//                .andExpect(status().isOk());
+//    }
+//}
